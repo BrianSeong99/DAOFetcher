@@ -30,3 +30,6 @@ frontend/.env*.local
 
 # vercel
 frontend/.vercel
+
+contracts/node_modules
+contracts/.env*
