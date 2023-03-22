@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 
 import Web3 from 'web3'
 
-// import styles from './ConnectWallet.less'
-
 export default function ConnectWallet() {
 
     const [web3, setWeb3] = useState();
@@ -18,12 +16,10 @@ export default function ConnectWallet() {
             if (window.ethereum) {
                 // Connect to MetaMask
                 try {
-                    console.log("in refresh useeffect")
                     await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const web3 = new Web3(window.ethereum);
                     setWeb3(web3);
                     const accounts = await web3.eth.getAccounts();
-                    console.log("in refresh useeffect accounts", accounts)
                     setAccount(accounts[0]);
                 } catch (err) {
                     console.error(err);
@@ -40,7 +36,6 @@ export default function ConnectWallet() {
         console.log("in handle connect")
         if (window.ethereum) {
             try {
-                console.log("in handle connect 00")
                 const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
                 // const web3 = new Web3(window.ethereum);
                 // setWeb3(web3);
@@ -106,8 +101,8 @@ export default function ConnectWallet() {
                 ) : (
                     <button className={styles.button} onClick={onLogin}>{account}</button>
                 )
-            )} */}
-            {/* <button onClick={handleMetaMaskLogin}>Login with MetaMask</button>
+            )} 
+            <button onClick={handleMetaMaskLogin}>Login with MetaMask</button>
             <button >Login with IntMax</button> */}
         </div>
     );
