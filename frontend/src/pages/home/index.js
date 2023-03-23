@@ -6,10 +6,9 @@ import ConnectWallet from '../components/ConnectWallet/ConnectWallet.js';
 import DAOlist from '../components/DAOlist/DAOlist.js';
 import CreateFetcher from '../components/CreateFetcher/CreateFetcher.js';
 
-import styles from '@/styles/Home.module.css'
+import styles from "@/styles/Home.module.css";
 
-
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
@@ -37,7 +36,6 @@ export default function Home() {
           <div>This is Content</div>
         </div>
       </div>
-
     </>
-  )
+  );
 }
