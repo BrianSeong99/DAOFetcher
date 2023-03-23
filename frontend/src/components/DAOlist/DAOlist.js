@@ -31,7 +31,6 @@ export default function DAOlist() {
                 treasuryAddress: "0xjasiejif",
                 access: "viewer"
             }
-
         ]
     }
 
@@ -44,6 +43,9 @@ export default function DAOlist() {
                     </div>
                 )
             })}
+            <div className={styles.circle} style={{fontSize:"2rem" ,paddingTop:"2px"}}>
+                +
+            </div>
         </div>
     );
 }

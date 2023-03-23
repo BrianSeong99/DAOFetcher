@@ -115,11 +115,14 @@ a {
 
 .navbar-container {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
   grid-area: navbar;
   height: 10vh;
+  margin: 0 10px;
+  gap: 8px;
 }
+
 .content-container {
   display: flex;
   align-items: center;
