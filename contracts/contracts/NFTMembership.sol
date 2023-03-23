@@ -15,6 +15,6 @@ contract NFTMembership is ERC721URIStorage {
     }
 
     function exists(uint256 _tokenId) public view returns (bool) {
-      _exists(_tokenId);
+        return _exists(_tokenId);
     }
 }

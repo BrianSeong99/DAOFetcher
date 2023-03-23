@@ -33,6 +33,10 @@ contract DAOServerFactory {
         return daoServers;
     }
 
+    function getDAOServersLength() public view returns (uint256) {
+        return daoServers.length;
+    }
+
     function getUserDAOServerRelations(address _user) public view returns (address[] memory) {
         address[] memory userRelations = new address[](daoServers.length);
 

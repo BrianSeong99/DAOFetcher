@@ -17,6 +17,7 @@ contract DAOServer {
     }
 
     address public admin;
+    address public factoryAddress;
     string daoName = "";
     string daoDescription = "";
     MembershipType[] public membershipTypes;
@@ -29,7 +30,7 @@ contract DAOServer {
     
 
     modifier onlyAdmin() {
-        require(msg.sender == admin, "OnlyAdmin: caller is not the admin");
+        require(msg.sender == admin || msg.sender == factoryAddress, "OnlyAdmin: caller is not the admin");
         _;
     }
 
@@ -46,14 +47,18 @@ contract DAOServer {
     ) {
         require(bytes(_daoName).length != 0);
         require(bytes(_adminURI).length != 0);
-        require(_names.length == _symbols.length, "Different length of _names and _symbols");
-        require(_names.length == _tokenURIes.length, "Different length of _names and _tokenURIes");
-        require(_names.length == _durations.length, "Different length of _names and _durations");
-        require(_names.length == _prices.length, "Different length of _names and _prices");
+        require(
+            _names.length == _symbols.length 
+            && _names.length == _tokenURIes.length
+            && _names.length == _durations.length
+            && _names.length == _prices.length
+            , "Different lengths"
+        );
         
         daoName = _daoName;
         daoDescription = _daoDescription;
 
+        factoryAddress = msg.sender;
         admin = _admin;
         _createDefaultAdminMembership(_adminURI);
         mintAdmin(admin);
@@ -127,7 +132,7 @@ contract DAOServer {
 
     function isUserMember(address _user) public view returns (bool) {
         bool exist = membershipTypes[userMembershipType[_user]].token.exists(userMembershipTokenId[_user]);
-        return exist && isTokenExpired(userMembershipTokenId[_user]);
+        return exist && !isTokenExpired(userMembershipTokenId[_user]);
     }
 
     function isTokenExpired(uint256 tokenId) public view returns (bool) {
