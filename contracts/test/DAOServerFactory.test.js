@@ -147,12 +147,13 @@ describe("DAOServerFactory", function () {
   });
 
   it("Should return user DAO server relations", async function () {
+    await updateNewlyRegisteredMembershipTypes(addr2);
+
     const allDAOServers = await daoServerFactory.getAllDAOServers();
 
     const userRelations = await daoServerFactory.getUserDAOServerRelations(
-      addr1.address
+      addr2.address
     );
-    // console.log(userRelations);
 
     for (let i = 0; i < newlyRegisteredMembershipTypes.length; i++) {
       expect(userRelations[i].daoAddress).to.equal(allDAOServers[i]);
@@ -161,7 +162,7 @@ describe("DAOServerFactory", function () {
       );
       daoServer = DAOServer.attach(allDAOServers[i]);
       expect(userRelations[i].tokenId).to.equal(
-        daoServer.userMembershipTokenId(addr1.address)
+        await daoServer.userMembershipTokenId(addr2.address)
       );
     }
   });
