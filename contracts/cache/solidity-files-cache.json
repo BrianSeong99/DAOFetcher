@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/jinwooseong/Developer/Hackathon/2023ScalingEth/DAOFetcher/contracts/contracts/DAOServer.sol": {
-      "lastModificationDate": 1679645725557,
+      "lastModificationDate": 1679646881639,
       "contentHash": "fef6304de7bd077f4e1d0c18e112cad2",
       "sourceName": "contracts/DAOServer.sol",
       "solcConfig": {
@@ -443,7 +443,7 @@
       ]
     },
     "/Users/jinwooseong/Developer/Hackathon/2023ScalingEth/DAOFetcher/contracts/contracts/DAOServerFactory.sol": {
-      "lastModificationDate": 1679645611268,
+      "lastModificationDate": 1679646881639,
       "contentHash": "9bf0b55fccd98e57a7829c1bbdcd2a83",
       "sourceName": "contracts/DAOServerFactory.sol",
       "solcConfig": {
@@ -480,7 +480,7 @@
       ]
     },
     "/Users/jinwooseong/Developer/Hackathon/2023ScalingEth/DAOFetcher/contracts/contracts/NFTMembership.sol": {
-      "lastModificationDate": 1679557984161,
+      "lastModificationDate": 1679646881640,
       "contentHash": "9b6f600be3edc39e1a5715874e561b42",
       "sourceName": "contracts/NFTMembership.sol",
       "solcConfig": {
