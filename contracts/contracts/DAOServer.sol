@@ -30,7 +30,7 @@ contract DAOServer {
     
 
     modifier onlyAdmin() {
-        require(msg.sender == admin || msg.sender == factoryAddress, "OnlyAdmin: caller is not the admin");
+        require(msg.sender == admin || msg.sender == factoryAddress, "OnlyAdmin");
         _;
     }
 
@@ -45,8 +45,9 @@ contract DAOServer {
         uint256[] memory _durations, 
         uint256[] memory _prices
     ) {
-        require(bytes(_daoName).length != 0);
-        require(bytes(_adminURI).length != 0);
+        // require(bytes(_daoName).length != 0);
+        // require(bytes(_adminURI).length != 0);
+        require(_names.length > 0 && _names.length <= 3, "membership types length error");
         require(
             _names.length == _symbols.length 
             && _names.length == _tokenURIes.length
@@ -107,7 +108,7 @@ contract DAOServer {
     function mintMembership(address _to, uint256 _type) public payable {
         require(_type < membershipTypes.length, "Invalid membership type.");
         require(msg.value >= membershipTypes[_type].price, "Insufficient payment.");
-        require(_type != 0, "Can't mint admin type as none admin");
+        require(_type != 0, "Can't mint admin");
         
         if (userMembershipType[_to] != 0) {
             require(isTokenExpired(userMembershipTokenId[_to]), "NFT Not Expired yet, we don't support duplicate access yet");
@@ -137,5 +138,13 @@ contract DAOServer {
 
     function isTokenExpired(uint256 tokenId) public view returns (bool) {
         return block.timestamp > tokenExpiryTimestamp[tokenId];
+    }
+
+    function getTokenExpireDate(uint256 tokenId) public view returns (uint256) {
+        if (!isTokenExpired(tokenId)) {
+            return tokenExpiryTimestamp[tokenId];
+        } else {
+            return 0;
+        }
     }
 }
