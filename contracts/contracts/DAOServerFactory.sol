@@ -1,9 +1,16 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "contracts/DAOServer.sol";
 
 contract DAOServerFactory {
     address[] public daoServers;
+
+    struct userDaoRelation {
+        address daoAddress;
+        uint256 membershipType;
+        uint256 tokenId;
+    }
 
     function createDAOServer(
         string memory _daoName, 
@@ -37,13 +44,15 @@ contract DAOServerFactory {
         return daoServers.length;
     }
 
-    function getUserDAOServerRelations(address _user) public view returns (address[] memory) {
-        address[] memory userRelations = new address[](daoServers.length);
+    function getUserDAOServerRelations(address _user) public view returns (userDaoRelation[] memory) {
+        userDaoRelation[] memory userRelations = new userDaoRelation[](daoServers.length);
 
         for (uint i = 0; i < daoServers.length; i++) {
             DAOServer daoServer = DAOServer(daoServers[i]);
             if (daoServer.isUserMember(_user)) {
-                userRelations[i] = daoServers[i];
+                userRelations[i].daoAddress = daoServers[i];
+                userRelations[i].membershipType = daoServer.userMembershipType(_user);
+                userRelations[i].tokenId = daoServer.userMembershipTokenId(_user);
             }
         }
 

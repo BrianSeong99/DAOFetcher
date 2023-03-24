@@ -5,6 +5,7 @@ describe("DAOServerFactory", function () {
   let DAOServerFactory, DAOServer, NFTMembership;
   let daoServerFactory, daoServer, nftMembership;
   let owner, addr1, addr2;
+  let newlyRegisteredMembershipTypes = [];
 
   const fs = require("fs");
   const path = require("path");
@@ -12,9 +13,9 @@ describe("DAOServerFactory", function () {
   const jsonFilePath = path.resolve(__dirname, "./daoData.json");
   const daoData = JSON.parse(fs.readFileSync(jsonFilePath, "utf-8"));
 
-  const createMoreDAOs = async () => {
-    for (let i = 1; i < daoData.length; i++) {
-      await daoServerFactory.createDAOServer(
+  const createMoreDAOs = async (addr) => {
+    for (let i = 0; i < daoData.length; i++) {
+      await daoServerFactory.connect(addr).createDAOServer(
         daoData[i].daoName,
         daoData[i].daoDescription,
         daoData[i].adminURI,
@@ -29,6 +30,25 @@ describe("DAOServerFactory", function () {
     }
   };
 
+  const updateNewlyRegisteredMembershipTypes = async (addr) => {
+    const allDAOServers = await daoServerFactory.getAllDAOServers();
+    DAOServer = await ethers.getContractFactory("DAOServer");
+    newlyRegisteredMembershipTypes = [];
+
+    for (let i = 0; i < allDAOServers.length; i++) {
+      daoServer = DAOServer.attach(allDAOServers[i]);
+      const membershipTypes = await daoServer.getAllMembershipTypes();
+      const membershipTypeForDaoData = getRandomInt(membershipTypes.length - 1);
+      newlyRegisteredMembershipTypes.push(membershipTypeForDaoData + 1);
+      const price = membershipTypes[membershipTypeForDaoData + 1].price;
+      await daoServer
+        .connect(addr)
+        .mintNoneAdminMembership(addr.address, membershipTypeForDaoData + 1, {
+          value: price + 1,
+        });
+    }
+  };
+
   const getRandomInt = (x) => {
     return Math.floor(Math.random() * x);
   };
@@ -37,42 +57,22 @@ describe("DAOServerFactory", function () {
     [owner, addr1, addr2] = await ethers.getSigners();
 
     DAOServerFactory = await ethers.getContractFactory("DAOServerFactory");
+    NFTMembership = await ethers.getContractFactory("NFTMembership");
+    DAOServer = await ethers.getContractFactory("DAOServer");
+
     daoServerFactory = await DAOServerFactory.deploy();
     await daoServerFactory.deployed();
 
-    await daoServerFactory.createDAOServer(
-      daoData[0].daoName,
-      daoData[0].daoDescription,
-      daoData[0].adminURI,
-      daoData[0].memberships.names,
-      daoData[0].memberships.symbols,
-      daoData[0].memberships.tokenURIs,
-      daoData[0].memberships.durations,
-      daoData[0].memberships.prices.map((price) =>
-        ethers.utils.parseEther(price.toString())
-      )
-    );
-
-    const daoServers = await daoServerFactory.getAllDAOServers();
-    DAOServer = await ethers.getContractFactory("DAOServer");
-    daoServer = DAOServer.attach(daoServers[0]);
-
-    NFTMembership = await ethers.getContractFactory("NFTMembership");
+    await createMoreDAOs(owner);
+    await updateNewlyRegisteredMembershipTypes(addr1);
   });
 
-  it("Should create one new DAOServer", async function () {
-    const allDAOServers = await daoServerFactory.getAllDAOServers();
-    expect(allDAOServers.length).to.equal(1);
-  });
-
-  it("Should create more new DAOServers", async function () {
-    await createMoreDAOs();
+  it("Should create new DAOServers", async function () {
     const allDAOServers = await daoServerFactory.getAllDAOServers();
     expect(allDAOServers.length).to.equal(daoData.length);
   });
 
   it("Should get All Dao infos and compare", async function () {
-    await createMoreDAOs();
     const allDAOServers = await daoServerFactory.getAllDAOServers();
     DAOServer = await ethers.getContractFactory("DAOServer");
     for (let i = 0; i < allDAOServers.length; i++) {
@@ -107,62 +107,28 @@ describe("DAOServerFactory", function () {
     );
 
     await daoServer
-      .connect(addr1)
-      .mintMembership(addr1.address, membershipType, {
+      .connect(addr2)
+      .mintNoneAdminMembership(addr2.address, membershipType, {
         value: price + 1,
       });
 
     const userMembershipType = await daoServer.userMembershipType(
-      addr1.address
+      addr2.address
     );
     expect(userMembershipType).to.equal(membershipType);
   });
 
-  it("Should mint multiple new membership for addr1 and get all memberships", async function () {
-    await createMoreDAOs();
+  it("Should mint multiple new membership for addr2 and get all memberships", async function () {
+    await createMoreDAOs(addr1);
+    await updateNewlyRegisteredMembershipTypes(addr2);
 
-    let allDAOServers = await daoServerFactory.getAllDAOServers();
-    const newlyRegisteredMembershipTypes = [];
-
-    expect(allDAOServers.length).to.equal(daoData.length);
-
-    for (let i = 0; i < allDAOServers.length; i++) {
-      daoServer = DAOServer.attach(allDAOServers[i]);
-      const membershipTypeForDaoData = getRandomInt(
-        daoData[i].memberships.names.length - 1
-      );
-      newlyRegisteredMembershipTypes.push(membershipTypeForDaoData + 1);
-      const price = ethers.utils.parseEther(
-        daoData[i].memberships.prices[membershipTypeForDaoData].toString()
-      );
-      await daoServer
-        .connect(addr1)
-        .mintMembership(addr1.address, membershipTypeForDaoData + 1, {
-          value: price + 1,
-        });
-    }
-
-    await daoServerFactory.connect(addr1).createDAOServer(
-      daoData[0].daoName,
-      daoData[0].daoDescription,
-      daoData[0].adminURI,
-      daoData[0].memberships.names,
-      daoData[0].memberships.symbols,
-      daoData[0].memberships.tokenURIs,
-      daoData[0].memberships.durations,
-      daoData[0].memberships.prices.map((price) =>
-        ethers.utils.parseEther(price.toString())
-      )
-    );
-    newlyRegisteredMembershipTypes.push(0);
-
-    allDAOServers = await daoServerFactory.getAllDAOServers();
+    const allDAOServers = await daoServerFactory.getAllDAOServers();
 
     // getting all dao's membership status.
     for (let i = 0; i < allDAOServers.length; i++) {
       daoServer = DAOServer.attach(allDAOServers[i]);
       const userMembershipType = await daoServer.userMembershipType(
-        addr1.address
+        addr2.address
       );
       expect(userMembershipType).to.equal(newlyRegisteredMembershipTypes[i]);
     }
@@ -172,28 +138,31 @@ describe("DAOServerFactory", function () {
     const membershipType = 1;
 
     await expect(
-      daoServer.connect(addr1).mintMembership(addr1.address, membershipType, {
-        value: ethers.utils.parseEther("0.1"),
-      })
+      daoServer
+        .connect(addr1)
+        .mintNoneAdminMembership(addr1.address, membershipType, {
+          value: ethers.utils.parseEther("0.1"),
+        })
     ).to.be.revertedWith("Insufficient payment.");
   });
 
   it("Should return user DAO server relations", async function () {
-    const membershipType = 1;
-    const price = ethers.utils.parseEther(
-      daoData[0].memberships.prices[membershipType].toString()
-    );
-
-    await daoServer
-      .connect(addr1)
-      .mintMembership(addr1.address, membershipType, {
-        value: price + 1,
-      });
+    const allDAOServers = await daoServerFactory.getAllDAOServers();
 
     const userRelations = await daoServerFactory.getUserDAOServerRelations(
       addr1.address
     );
+    // console.log(userRelations);
 
-    expect(userRelations[0]).to.equal(daoServer.address);
+    for (let i = 0; i < newlyRegisteredMembershipTypes.length; i++) {
+      expect(userRelations[i].daoAddress).to.equal(allDAOServers[i]);
+      expect(userRelations[i].membershipType).to.equal(
+        newlyRegisteredMembershipTypes[i]
+      );
+      daoServer = DAOServer.attach(allDAOServers[i]);
+      expect(userRelations[i].tokenId).to.equal(
+        daoServer.userMembershipTokenId(addr1.address)
+      );
+    }
   });
 });
