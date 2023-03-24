@@ -19,7 +19,7 @@ contract DAOServerFactory {
         string[] memory _names, 
         string[] memory _symbols, 
         string[] memory _tokenURIes, 
-        uint256[] memory _durations, 
+        uint256[] memory _expirationDates, 
         uint256[] memory _prices
     ) public {
         DAOServer newDAOServer = new DAOServer(
@@ -30,7 +30,7 @@ contract DAOServerFactory {
             _names,
             _symbols,
             _tokenURIes,
-            _durations,
+            _expirationDates,
             _prices
         );
         daoServers.push(address(newDAOServer));

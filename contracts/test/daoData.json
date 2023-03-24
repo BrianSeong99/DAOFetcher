@@ -10,7 +10,7 @@
         "https://example.com/metadata/gold.json",
         "https://example.com/metadata/silver.json"
       ],
-      "durations": [15552000, 7776000],
+      "expirationDates": [15552000, 7776000],
       "prices": [1, 0.5]
     }
   },
@@ -24,7 +24,7 @@
       "tokenURIs": [
         "https://random.example.com/metadata/platinum.json"
       ],
-      "durations": [17280000],
+      "expirationDates": [17280000],
       "prices": [1.5]
     }
   },
@@ -39,7 +39,7 @@
         "https://innovative.example.com/metadata/diamond.json",
         "https://innovative.example.com/metadata/emerald.json"
       ],
-      "durations": [19008000, 6480000],
+      "expirationDates": [19008000, 6480000],
       "prices": [2, 0.75]
     }
   },
@@ -55,7 +55,7 @@
         "https://dynamic.example.com/metadata/sapphire.json",
         "https://dynamic.example.com/metadata/diamond.json"
       ],
-      "durations": [12960000, 5184000, 6480000],
+      "expirationDates": [12960000, 5184000, 6480000],
       "prices": [1.25, 0.5, 0.1]
     }
   },
@@ -70,7 +70,7 @@
         "https://nimble.example.com/metadata/topaz.json",
         "https://nimble.example.com/metadata/amethyst.json"
       ],
-      "durations": [8640000, 4320000],
+      "expirationDates": [8640000, 4320000],
       "prices": [0.9, 0.4]
     }
   },
@@ -85,7 +85,7 @@
         "https://collaborative.example.com/metadata/citrine.json",
         "https://collaborative.example.com/metadata/garnet.json"
       ],
-      "durations": [18144000, 2592000],
+      "expirationDates": [18144000, 2592000],
       "prices": [1.5, 0.3]
     }
   }  

@@ -12,7 +12,7 @@ contract DAOServer {
         string name;
         string symbol;
         string tokenURI;
-        uint256 duration;
+        uint256 expirationDate;
         uint256 price;
     }
 
@@ -40,10 +40,10 @@ contract DAOServer {
         string[] memory _names, 
         string[] memory _symbols, 
         string[] memory _tokenURIes, 
-        uint256[] memory _durations, 
+        uint256[] memory _expirationDates, 
         uint256[] memory _prices
     ) {
-        require(_names.length > 0 && _names.length <= 3 && _names.length == _symbols.length && _names.length == _tokenURIes.length && _names.length == _durations.length && _names.length == _prices.length, "length error");
+        require(_names.length > 0 && _names.length <= 3 && _names.length == _symbols.length && _names.length == _tokenURIes.length && _names.length == _expirationDates.length && _names.length == _prices.length, "length error");
         
         daoName = _daoName;
         daoDescription = _daoDescription;
@@ -54,18 +54,18 @@ contract DAOServer {
         mintAdmin(admin);
         
         for (uint256 i = 0; i < _names.length; i ++) {
-            addNewMembershipType(_names[i], _symbols[i], _tokenURIes[i], _durations[i], _prices[i]);
+            addNewMembershipType(_names[i], _symbols[i], _tokenURIes[i], _expirationDates[i], _prices[i]);
         }
     }
 
-    function addNewMembershipType(string memory _name, string memory _symbol, string memory _tokenURI, uint256 _duration, uint256 _price) public onlyAdmin {
+    function addNewMembershipType(string memory _name, string memory _symbol, string memory _tokenURI, uint256 _expirationDate, uint256 _price) public onlyAdmin {
         NFTMembership newToken = new NFTMembership(_name, _symbol);
         MembershipType memory newMembershipType = MembershipType({
             token: newToken,
             name: _name,
             symbol: _symbol,
             tokenURI: _tokenURI,
-            duration: _duration,
+            expirationDate: _expirationDate,
             price: _price
         });
         membershipTypes.push(newMembershipType);
@@ -89,8 +89,8 @@ contract DAOServer {
         uint256 tokenId = _type * 1e12 + membershipTypeTokenCount[_type]; // Generate a unique token ID based on the membership type and counter
         membershipTypes[_type].token.mintToken(_to, tokenId);
         membershipTypes[_type].token.setTokenURI(tokenId, membershipTypes[_type].tokenURI);
-        uint256 duration = membershipTypes[_type].duration;
-        tokenExpiryTimestamp[tokenId] = block.timestamp + duration;
+        uint256 expirationDate = membershipTypes[_type].expirationDate;
+        tokenExpiryTimestamp[tokenId] = expirationDate;
         userMembershipType[_to] = _type;
         userMembershipTokenId[_to] = tokenId;
         membershipTypeTokenCount[_type]++;
