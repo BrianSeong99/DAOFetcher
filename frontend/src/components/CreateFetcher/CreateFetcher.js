@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useProvider } from 'wagmi';
 
 import Image from "next/image";
 import styles from './CreateFetcher.module.css';
@@ -6,12 +7,15 @@ import styles from './CreateFetcher.module.css';
 import ConnectDiscord from '@/utils/ConnectDiscord/ConnectDiscord.js';
 import InputBox from '@/components/InputBox/InputBox.js';
 
+import createDAOServer from '@/abis/createDAOServer.js';
+
 export default function CreateFetcher(props) {
     const {
         onClose,
         code,
         discordConnected,
-    } = props
+    } = props;
+    const provider = useProvider();
     // const [accessToken, setAccessToken] = useState("");
     const [adminGuildsList, setAdminGuildsList] = useState({});
     const [serverSelection, setServerSelection] = useState(-1);
@@ -74,6 +78,7 @@ export default function CreateFetcher(props) {
                 console.error('Error exchanging authorization code for access token:', error);
             });
     }, [code]);
+    
     const convertGuildInfo = (adminGuilds) => {
         let decoded_guilds = []
         console.log(adminGuilds);
@@ -95,8 +100,19 @@ export default function CreateFetcher(props) {
         setServerSelection(index);
     }
 
-    const handleCreate = () => {
-
+    const handleCreate = async () => {
+        const response = await createDAOServer(
+            adminGuildsList[serverSelection].dao_name,
+            adminGuildsList[serverSelection].icon_url,
+            adminGuildsList[serverSelection].id,
+            names,
+            symbols,
+            tokenURIs,
+            durations,
+            prices,
+            provider
+        );
+        console.log(response);
     }
 
     const handleAdd = () => {
@@ -205,10 +221,10 @@ export default function CreateFetcher(props) {
                         <div className={styles.caption}>
                             {names.length !== 0 &&
                                 names.map((_, index) => 
-                                    (<>
+                                    (<div key={index}>
                                         {names[index]}, {symbols[index]}, {tokenURIs[index]},
                                         {durations[index]}, {prices[index]}
-                                    </>)
+                                    </div>)
                                 )
                             }
                         </div>
