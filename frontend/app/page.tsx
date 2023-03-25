@@ -7,6 +7,7 @@ import "@/styles/interactions.css";
 
 import React, { useState, useEffect } from 'react'
 
+import ActionableImageCard from "@/components/ActionableImageCard/ActionableImageCard";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import CreateFetcher from '@/components/CreateFetcher/CreateFetcher.js';
 import MintMembership from '@/components/MintMembership/MintMembership.js';
@@ -20,16 +21,19 @@ export default function Home() {
       name: "Aave",
       description:
         "Non-custodial protocol to earn interest on deposits and borrow assets.",
+      action: () => { },
     },
     {
       src: "https://avatars.githubusercontent.com/u/77035304?s=280&v=4",
       name: "Taho",
       description: "Community owned, Open Source, Web3 wallet.",
+      action: () => { },
     },
     {
       src: "https://avatars.githubusercontent.com/u/58791460?s=280&v=4",
       name: "Optimism",
       description: "Layer 2 scaling solution for Ethereum.",
+      action: () => { },
     },
   ];
   const [showRegisterModal, setShowRegisterModal] = useState(false);
@@ -78,34 +82,41 @@ export default function Home() {
           />}
         <div className="grid grid-cols-4 items-center gap-4">
           {mockServerList.map((e) => (
-            <button
-              key={e.name}
-              className="border border-black/10 hover:shadow-lg hover:shadow-black/5 shadow-transparent transition-all w-full aspect-4/5 rounded-lg flex flex-col items-center justify-center gap-4"
-            >
-              <div>
-                <Image
-                  src={e.src}
-                  alt={e.name}
-                  width={75}
-                  height={75}
-                  className="rounded-full overflow-clip  shadow-md"
-                />
-              </div>
+            <>
+              {/* <ActionableImageCard
+                key={e.name}
+                name={e.name}
+                src={e.src}
+                description={e.description}
+                action={e.action}
+              /> */}
+              <div className="border border-black/10 hover:shadow-lg hover:shadow-black/5 shadow-transparent transition-all w-full aspect-4/5 rounded-lg flex flex-col items-center justify-center gap-4"
+              >
+                <div>
+                  <Image
+                    src={e.src}
+                    alt={e.name}
+                    width={75}
+                    height={75}
+                    className="rounded-full overflow-clip  shadow-md"
+                  />
+                </div>
 
-              <div className="px-6">
-                <h1 className="font-bold text-2xl">{e.name}</h1>
-                <h3 className="text-sm opacity-90">{e.description}</h3>
-              </div>
+                <div className="px-6">
+                  <h1 className="font-bold text-2xl">{e.name}</h1>
+                  <h3 className="text-sm opacity-90">{e.description}</h3>
+                </div>
 
-              <button
-                onClick={handleMintModal}
-                className="border border-primary text-primary hover:bg-primary/10 px-6 py-2 scale-shadow-interactable rounded-full">
-                Mint Membership
-              </button>
-            </button>
+                <button
+                  onClick={handleMintModal}
+                  className="border border-primary text-primary hover:bg-primary/10 px-6 py-2 scale-shadow-interactable rounded-full">
+                  Mint Membership
+                </button>
+              </div>
+            </>
           ))}
         </div>
-      </section>
-    </div>
+      </section >
+    </div >
   );
 }
