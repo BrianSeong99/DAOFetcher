@@ -1,0 +1,150 @@
+/* The modal (background) */
+.modal {
+    display: flex;
+    height: 80vh;
+    width: 80vw;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    background-color: #F4F4F4;
+    border: 1px solid gray;
+    border-radius: 25px;
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+/* Close button */
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: black;
+    /* background-color: rgba(60, 66, 66, 0.8); */
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dropdowns {
+    margin-top: 20px;
+}
+
+.dropdowns label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.step {
+    position: relative;
+    min-height: 1em;
+    color: white;
+}
+
+.title {
+    /* font-size: 5rem; */
+    line-height: 1.5em;
+    font-weight: bold;
+    color: black;
+}
+
+.caption {
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: black;
+}
+
+.step+.step {
+    margin-top: 1.5em
+}
+
+.step>div:first-child {
+    position: static;
+    height: 0;
+}
+
+.step>div:not(:first-child) {
+    margin-left: 1.5em;
+    padding-left: 1em;
+}
+
+/* Circle */
+.circle {
+    background: #4AA182;
+    position: relative;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    border-radius: 100%;
+    color: white;
+    text-align: center;
+    /* box-shadow: 0 0 0 3px #fff; */
+}
+
+/* Vertical Line */
+.circle:after {
+    content: ' ';
+    position: absolute;
+    display: block;
+    top: 1px;
+    right: 50%;
+    bottom: 1px;
+    left: 50%;
+    height: 100%;
+    width: 1px;
+    transform: scale(1, 2);
+    transform-origin: 50% -100%;
+    background-color: #4AA182;
+    z-index: -1;
+}
+
+.step:last-child .circle:after {
+    display: none
+}
+
+.step.step-active {
+    color: #4285f4
+}
+
+.step.step-active .circle {
+    background-color: #4285f4;
+}
+
+.createButton {
+    width: 40%;
+    height: 45px;
+    /* box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1); */
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    margin-top: 15px;
+}
+
+.iconDisplay {
+    gap:20px;
+}
+.circularIcon {
+    width: 50px;
+    height: 50px;
+    border: 1px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+}
