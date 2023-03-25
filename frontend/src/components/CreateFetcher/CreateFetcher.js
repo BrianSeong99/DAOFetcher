@@ -8,7 +8,8 @@ import ConnectDiscord from '@/utils/ConnectDiscord/ConnectDiscord.js';
 export default function CreateFetcher(props) {
     const {
         onClose,
-        code
+        code,
+        discordConnected
     } = props
     // const [accessToken, setAccessToken] = useState("");
     const [adminGuildsList, setAdminGuildsList] = useState({});
@@ -17,7 +18,7 @@ export default function CreateFetcher(props) {
 
     useEffect(() => {
         const tokenEndpoint = 'https://discord.com/api/oauth2/token';
-        const redirectUri = 'http://localhost:3000/'; // Replace with your redirect URI
+        const redirectUri = 'http://localhost:3000/?show=true&'; // Replace with your redirect URI
         const clientId = '1088663386327351356'; // Replace with your client ID
         const clientSecret = 'IKW7IpUU9grNs0BEZAlOhj49Qoh1dJbe';
         const requestBody = new URLSearchParams({
@@ -89,7 +90,7 @@ export default function CreateFetcher(props) {
                     </div>
                     <div>
                         <div className={styles.title}>Connect to your discord account</div>
-                        <div className={styles.caption}><ConnectDiscord /></div>
+                        <div className={styles.caption}><ConnectDiscord discordConnected={discordConnected}/></div>
                     </div>
                 </div>
                 <div className={styles.step}>

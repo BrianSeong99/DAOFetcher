@@ -14,6 +14,7 @@ import Image from "next/image";
 
 export default function Home() {
   const [code, setCode] = useState("")
+  const [discordConnected, setDiscordConnected] = useState(false);
   const mockServerList = [
     {
       src: "https://cdn.stamp.fyi/space/aave.eth?s=164",
@@ -42,10 +43,16 @@ export default function Home() {
   useEffect(() => {
     // Get the authorization code from the URL query parameters
     const searchParams = new URLSearchParams(window.location.search);
-    const retrieved = searchParams.get('code');
+    let retrieved = searchParams.get('code');
     console.log("retrieved code", searchParams, retrieved)
     if (retrieved !== null) {
       setCode(retrieved)
+      setDiscordConnected(true);
+    }
+    retrieved = searchParams.get('show');
+    console.log("retrieved code", searchParams, retrieved);
+    if (retrieved !== null) {
+      setShowModal(true)
     }
     // Use the authorization code to exchange it for an access token
     // ...
@@ -76,6 +83,7 @@ export default function Home() {
           <CreateFetcher
             onClose={() => setShowModal(false)}
             code={code}
+            discordConnected={discordConnected}
           // show={showModal}
           />
         }
