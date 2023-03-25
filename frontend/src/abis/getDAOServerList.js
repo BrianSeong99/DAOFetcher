@@ -1,17 +1,19 @@
-import getWeb3 from "../utils/getSigner";
+import { getSigner, getNetwork } from "../utils/getSigner";
 import DAOServerFactoryABI from "./abis/DAOServerFactory.json";
-
-const DAOServerFactoryAddress = "0x..."; 
+import { DAOServerFactoryAddress } from "../constants/ContractAddress";
+import { ethers } from "ethers";
 
 export default async function getDAOServerList() {
-  const web3 = await getWeb3();
-  if (web3) {
+  const signer = await getSigner();
+  if (signer) {
     const factory = new ethers.Contract(
-      DAOServerFactoryAddress,
-      DAOServerFactoryABI,
-      web3
+      DAOServerFactoryAddress[(await getNetwork()).chainId.toString()],
+      DAOServerFactoryABI.abi,
+      signer
     );
     const daoServers = await factory.getAllDAOServers();
-    console.log(daoServers);
+    return daoServers
+  } else {
+    console.log("No Wallet Connected");
   }
 }
