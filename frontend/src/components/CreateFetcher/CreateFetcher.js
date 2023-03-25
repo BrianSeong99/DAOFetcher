@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useProvider } from 'wagmi';
+
 
 import Image from "next/image";
 import styles from './CreateFetcher.module.css';
@@ -15,7 +15,6 @@ export default function CreateFetcher(props) {
         code,
         discordConnected,
     } = props;
-    const provider = useProvider();
     // const [accessToken, setAccessToken] = useState("");
     const [adminGuildsList, setAdminGuildsList] = useState({});
     const [serverSelection, setServerSelection] = useState(-1);
@@ -77,7 +76,7 @@ export default function CreateFetcher(props) {
             .catch(error => {
                 console.error('Error exchanging authorization code for access token:', error);
             });
-    }, [code]);
+    }, []);
     
     const convertGuildInfo = (adminGuilds) => {
         let decoded_guilds = []
@@ -95,7 +94,6 @@ export default function CreateFetcher(props) {
 
     const handleServerClick = (id) => {
         const index = adminGuildsList.findIndex((element) => element.id === id);
-        console.log(id);
         setSelectedGuildId(id);
         setServerSelection(index);
     }
@@ -110,7 +108,6 @@ export default function CreateFetcher(props) {
             tokenURIs,
             durations,
             prices,
-            provider
         );
         console.log(response);
     }

@@ -1,4 +1,4 @@
-import getWeb3 from "../utils/getWeb3";
+import getWeb3 from "../utils/getSigner";
 import DAOServerFactoryABI from "./abis/DAOServerFactory.json";
 
 const DAOServerFactoryAddress = "0x..."; 
