@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import ActionableImageCard from "@/components/ActionableImageCard/ActionableImageCard";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
+import getDAOServerList from "@/abis/getDAOServerList";
 
 export default function Home() {
   const mockServerList = [
@@ -25,6 +27,14 @@ export default function Home() {
       action: () => {},
     },
   ];
+
+  useEffect(() => {
+    console.log("here");
+    async function fetch() {
+      await getDAOServerList();
+    }
+    fetch();
+  }, []);
 
   return (
     <div className="flex flex-col items-center w-full">
