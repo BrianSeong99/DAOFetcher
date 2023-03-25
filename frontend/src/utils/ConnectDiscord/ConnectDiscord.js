@@ -14,7 +14,7 @@ export default function ConnectDiscord(props) {
     const [connected, setConnected] = useState(false);
     const [servers, setServers] = useState([]);
     const [buttonText, setButtonText] = useState('Click to Connect Discord');
-
+    
     const DISCORD_CLIENT_ID = '1088663386327351356';
     const DISCORD_REDIRECT_URI = 'http://localhost:3000/?show=true&';
     const DISCORD_OAUTH2_URL = 'https://discord.com/api/oauth2/authorize';
@@ -49,7 +49,7 @@ export default function ConnectDiscord(props) {
             >
                 <p style={{ display: "flex", gap: "10px" }}><FaDiscord size={20} color="5865F2" />{buttonText}</p>
             </button>
-            {connected && (
+            {/* {connected && (
                 <div>
                     <button onClick={handleFetchServers}>Fetch Servers</button>
                     <ul>
@@ -58,7 +58,7 @@ export default function ConnectDiscord(props) {
                         ))}
                     </ul>
                 </div>
-            )}
+            )} */}
         </div>
     );
 };

@@ -15,6 +15,7 @@ import Image from "next/image";
 export default function Home() {
   const [code, setCode] = useState("")
   const [discordConnected, setDiscordConnected] = useState(false);
+
   const mockServerList = [
     {
       src: "https://cdn.stamp.fyi/space/aave.eth?s=164",
@@ -38,7 +39,7 @@ export default function Home() {
   ];
   const [showModal, setShowModal] = useState(false);
   const handleModal = () => {
-    setShowModal(true)
+    setShowModal(true);
   };
   useEffect(() => {
     // Get the authorization code from the URL query parameters
@@ -52,7 +53,7 @@ export default function Home() {
     retrieved = searchParams.get('show');
     console.log("retrieved code", searchParams, retrieved);
     if (retrieved !== null) {
-      setShowModal(true)
+      setShowModal(true);
     }
     // Use the authorization code to exchange it for an access token
     // ...

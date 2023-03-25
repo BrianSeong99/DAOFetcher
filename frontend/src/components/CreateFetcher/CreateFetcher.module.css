@@ -140,11 +140,20 @@
 
 .iconDisplay {
     gap:20px;
+    padding: 3px;
 }
 .circularIcon {
     width: 50px;
     height: 50px;
     border: 1px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.circularIconHighlight {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #4AA182;
     border-radius: 50%;
     overflow: hidden;
 }
