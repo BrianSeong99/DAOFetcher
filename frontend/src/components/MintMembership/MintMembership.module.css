@@ -1,0 +1,130 @@
+/* The modal (background) */
+.modal {
+    display: flex;
+    height: 85vh;
+    width: 85vw;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    background-color: #F4F4F4;
+    border: 1px solid gray;
+    border-radius: 25px;
+}
+
+/* Modal content */
+.modalContent {
+    margin: 15% auto;
+    padding: 20px;
+    width:100%;
+   /* max-width: 600px; */
+}
+
+/* Close button */
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: black;
+    /* background-color: rgba(60, 66, 66, 0.8); */
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cards {
+    /* display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(auto-fill);
+    grid-gap: 20px; */
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    /* width: 280px; */
+    width: calc((100% - 40px)/3);
+    height: 75vh;
+    flex-grow: 1;
+    border-radius: 25px;
+    background-color: white;
+    /* justify-content: center; */
+    text-align: center;
+
+}
+.days {
+    color: #4AA182;
+    font-weight: 300;
+    align-self: flex-end;
+    margin-left: 9px;
+    font-size: 1.6rem;
+    margin-bottom: 9px;
+    font-style: italic;
+}
+
+.mintButton {
+    width: 180px;
+    height: 50px;
+    border-radius: 25px;
+    color: #4AA182;
+    border: 1.5px solid #4AA182;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: center;
+
+}
+
+.title {
+    /* font-size: 5rem; */
+    line-height: 1.5em;
+    font-weight: bold;
+    color: black;
+}
+
+.caption {
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: black;
+}
+
+.createButton {
+    width: 40%;
+    height: 45px;
+    /* box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1); */
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    margin-top: 15px;
+}
+
+.iconDisplay {
+    gap: 20px;
+}
+
+.circularIcon {
+    width: 50px;
+    height: 50px;
+    border: 1px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+}

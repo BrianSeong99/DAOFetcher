@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react'
 
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import CreateFetcher from '@/components/CreateFetcher/CreateFetcher.js';
+import MintMembership from '@/components/MintMembership/MintMembership.js';
 import Image from "next/image";
 
 export default function Home() {
@@ -31,15 +32,18 @@ export default function Home() {
       description: "Layer 2 scaling solution for Ethereum.",
     },
   ];
-  const [showModal, setShowModal] = useState(false);
-  const handleModal = () => {
-    setShowModal(true)
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showMintModal, setShowMintModal] = useState(false);
+  const handleRegisterModal = () => {
+    setShowRegisterModal(true)
+  };
+  const handleMintModal = () => {
+    setShowMintModal(true)
   };
   useEffect(() => {
     // Get the authorization code from the URL query parameters
     const searchParams = new URLSearchParams(window.location.search);
     const retrieved = searchParams.get('code');
-    console.log("retrieved code", searchParams, retrieved)
     if (retrieved !== null) {
       setCode(retrieved)
     }
@@ -54,19 +58,24 @@ export default function Home() {
           <h1 className="font-bold text-4xl">Servers</h1>
 
           <NavigationBar
-            handleModal={handleModal}
-            showModal={showModal}
+            handleRegisterModal={handleRegisterModal}
+            showRegisterModal={showRegisterModal}
           />
         </div>
 
         <br />
-        {showModal &&
+        {showRegisterModal &&
           <CreateFetcher
-            onClose={() => setShowModal(false)}
+            onClose={() => setShowRegisterModal(false)}
             code={code}
-          // show={showModal}
+          // show={showRegisterModal}
           />
         }
+        {showMintModal &&
+          <MintMembership
+            onClose={() => setShowMintModal(false)}
+            handleMintModal={handleMintModal}
+          />}
         <div className="grid grid-cols-4 items-center gap-4">
           {mockServerList.map((e) => (
             <button
@@ -88,7 +97,9 @@ export default function Home() {
                 <h3 className="text-sm opacity-90">{e.description}</h3>
               </div>
 
-              <button className="border border-primary text-primary hover:bg-primary/10 px-6 py-2 scale-shadow-interactable rounded-full">
+              <button
+                onClick={handleMintModal}
+                className="border border-primary text-primary hover:bg-primary/10 px-6 py-2 scale-shadow-interactable rounded-full">
                 Mint Membership
               </button>
             </button>
