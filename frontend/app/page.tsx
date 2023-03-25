@@ -7,7 +7,6 @@ import "@/styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import "@/styles/interactions.css";
 
-
 import ActionableImageCard from "@/components/ActionableImageCard/ActionableImageCard";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import CreateFetcher from '@/components/CreateFetcher/CreateFetcher.js';
