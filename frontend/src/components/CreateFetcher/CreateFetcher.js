@@ -21,8 +21,11 @@ export default function CreateFetcher(props) {
     const [tokenURIInput, setTokenURIInput] = useState('');
     const [durationInput, setDurationInput] = useState(0);
     const [priceInput, setPriceInput] = useState(0);
-    const [daoData, setDapData] = useState(null);
-
+    const [names, setNames] = useState([]);
+    const [symbols, setSymbols] = useState([]);
+    const [tokenURIs, setTokenURIs] = useState([]);
+    const [durations, setDurations] = useState([]);
+    const [prices, setPrices] = useState([]);
 
     const DISCORD_IMG_BASEURL = 'https://cdn.discordapp.com/'
 
@@ -90,6 +93,18 @@ export default function CreateFetcher(props) {
         console.log(id);
         setSelectedGuildId(id);
         setServerSelection(index);
+    }
+
+    const handleCreate = () => {
+
+    }
+
+    const handleAdd = () => {
+        setNames([...names, nameInput]);
+        setSymbols([...symbols, symbolInput]);
+        setTokenURIs([...tokenURIs, tokenURIInput]);
+        setDurations([...durations, durationInput]);
+        setPrices([...prices, priceInput]);
     }
 
     return (
@@ -178,10 +193,34 @@ export default function CreateFetcher(props) {
                                 setValue={setPriceInput}
                             />
                         </div>
+                        <div>
+                            <button 
+                                className={names.length>2 ? styles.addButtonDisabled : styles.addButton}
+                                onClick={handleAdd}
+                                disabled={names.length>2}
+                            >
+                                Add
+                            </button>
+                        </div>
+                        <div className={styles.caption}>
+                            {names.length !== 0 &&
+                                names.map((_, index) => 
+                                    (<>
+                                        {names[index]}, {symbols[index]}, {tokenURIs[index]},
+                                        {durations[index]}, {prices[index]}
+                                    </>)
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
                 <div >
-                    <button className={styles.createButton}>Create</button>
+                    <button 
+                        className={styles.createButton}
+                        onClick={handleCreate}
+                    >
+                        Create
+                    </button>
                 </div>
             </div>
         </div>

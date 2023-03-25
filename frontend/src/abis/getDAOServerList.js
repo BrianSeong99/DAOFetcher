@@ -1,7 +1,7 @@
 import getWeb3 from "../utils/getWeb3";
-import DAOServerFactoryABI from "./abis/DAOServerFactory.json"; // Replace with your contract ABI
+import DAOServerFactoryABI from "./abis/DAOServerFactory.json";
 
-const DAOServerFactoryAddress = "0x..."; // Replace with your contract address
+const DAOServerFactoryAddress = "0x..."; 
 
 export default async function getDAOServerList() {
   const web3 = await getWeb3();
