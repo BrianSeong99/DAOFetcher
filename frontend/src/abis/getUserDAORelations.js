@@ -12,7 +12,7 @@ export default async function getUserDAORelations() {
       signer
     );
     const userRelations = await factory.getUserDAOServerRelations(await signer.getAddress());
-    console.log("userRelations: ", userRelations);
+    // console.log("userRelations: ", userRelations);
     return userRelations
   } else {
     console.log("No Wallet Connected");

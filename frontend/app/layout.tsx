@@ -28,8 +28,34 @@ import { publicProvider } from "wagmi/providers/public";
 import { ServerListProvider } from "../src/utils/ServerListContext";
 import { useRouter } from "next/navigation";
 
+import { Chain } from 'wagmi/chains';
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+
+const mantleTest: Chain = {
+  id: 5001,
+  name: 'MantleTestnet',
+  network: 'mantle testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'BIT',
+    symbol: 'BIT',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://rpc.testnet.mantle.xyz'],
+    },
+    public: {
+        http: ["https://rpc.testnet.mantle.xyz"],
+    },
+  },
+  blockExplorers: {
+    default: { name: 'MantleScan', url: 'https://explorer.testnet.mantle.xyz/' },
+  },
+  testnet: false,
+};
+
 const { chains, provider } = configureChains(
-  [polygonMumbai, optimismGoerli, gnosisChiado, scrollTestnet],
+  [polygonMumbai, optimismGoerli, gnosisChiado, scrollTestnet, mantleTest],
   [publicProvider()]
 );
 

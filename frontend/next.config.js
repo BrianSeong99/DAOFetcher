@@ -12,7 +12,8 @@ const nextConfig = {
       "www.cnet.com",
       "cdn.geekwire.com",
       "thumbor.forbes.com",
-      "picsum.photos"
+      "picsum.photos",
+      "daofetchervancouver.s3.us-west-2.amazonaws.com"
     ],
   },
 };
