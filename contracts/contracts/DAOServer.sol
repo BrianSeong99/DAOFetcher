@@ -59,6 +59,7 @@ contract DAOServer {
 
         factoryAddress = msg.sender;
         admin = _admin;
+        addNewMembershipType("None", "NONE", _daoIconURL, 100000000000000000000, 0);
         addNewMembershipType("Admin", "ADM", _daoIconURL, 100000000000000000000, 0);
         mintAdmin(admin);
         
@@ -81,7 +82,7 @@ contract DAOServer {
     }
 
     function mintAdmin(address _to) public onlyAdmin {
-        mintMembership(_to, 0);
+        mintMembership(_to, 1);
     }
 
     function mintNoneAdminMembership(address _to, uint256 _type) public payable {
@@ -110,7 +111,6 @@ contract DAOServer {
     }
 
     function isUserMember(address _user) public view returns (bool) {
-        bool exist = membershipTypes[userMembershipType[_user]].token.exists(userMembershipTokenId[_user]);
-        return exist && block.timestamp < tokenExpiryTimestamp[userMembershipTokenId[_user]];
+        return userMembershipType[_user] != 0;
     }
 }

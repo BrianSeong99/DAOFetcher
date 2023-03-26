@@ -83,21 +83,21 @@ describe("DAOServerFactory", function () {
     for (let i = 0; i < allDAOServers.length; i++) {
       daoServer = DAOServer.attach(allDAOServers[i]);
       const membershipTypes = await daoServer.getAllMembershipTypes();
-      for (let j = 1; j < membershipTypes.length; j++) {
+      for (let j = 2; j < membershipTypes.length; j++) {
         expect(membershipTypes[j].name).to.equal(
-          daoData[i].memberships.names[j - 1]
+          daoData[i].memberships.names[j - 2]
         );
         expect(membershipTypes[j].symbol).to.equal(
-          daoData[i].memberships.symbols[j - 1]
+          daoData[i].memberships.symbols[j - 2]
         );
         expect(membershipTypes[j].tokenURI).to.equal(
-          daoData[i].memberships.tokenURIs[j - 1]
+          daoData[i].memberships.tokenURIs[j - 2]
         );
         expect(membershipTypes[j].duration).to.equal(
-          daoData[i].memberships.durations[j - 1]
+          daoData[i].memberships.durations[j - 2]
         );
         expect(membershipTypes[j].price).to.equal(
-          daoData[i].memberships.prices[j - 1]
+          daoData[i].memberships.prices[j - 2]
         );
       }
     }
@@ -136,7 +136,7 @@ describe("DAOServerFactory", function () {
   });
 
   it("Should revert if trying to mint with insufficient payment", async function () {
-    const membershipType = 1;
+    const membershipType = 2;
 
     await expect(
       daoServer
@@ -167,6 +167,38 @@ describe("DAOServerFactory", function () {
       );
     }
   });
+
+  // it("Should Show User is not a Member", async function () {
+  //   const allDAOServers = await daoServerFactory.getAllDAOServers();
+  //   console.log(allDAOServers);
+
+  //   let userRelations = await daoServerFactory.getUserDAOServerRelations(
+  //     addr2.address
+  //   );
+  //   console.log("addr2", userRelations);
+  //   daoServer = DAOServer.attach(userRelations[0].daoAddress);
+  //   console.log(await daoServer.isUserMember(addr2.address));
+  //   userRelations = await daoServerFactory.getUserDAOServerRelations(
+  //     owner.address
+  //   );
+  //   console.log("owner", userRelations[0]);
+  //   daoServer = DAOServer.attach(userRelations[0].daoAddress);
+  //   console.log(await daoServer.isUserMember(addr2.address));
+  //   console.log("=============");
+  //   await updateNewlyRegisteredMembershipTypes(addr2);
+  //   userRelations = await daoServerFactory.getUserDAOServerRelations(
+  //     addr2.address
+  //   );
+  //   console.log("addr2", userRelations[0]);
+  //   daoServer = DAOServer.attach(userRelations[0].daoAddress);
+  //   console.log(await daoServer.isUserMember(addr2.address));
+  //   userRelations = await daoServerFactory.getUserDAOServerRelations(
+  //     owner.address
+  //   );
+  //   console.log("owner", userRelations[0]);
+  //   daoServer = DAOServer.attach(userRelations[0].daoAddress);
+  //   console.log(await daoServer.isUserMember(addr2.address));
+  // });
   // it("Should get Token Expire Date", async function () {
   //   await updateNewlyRegisteredMembershipTypes(addr2);
 
