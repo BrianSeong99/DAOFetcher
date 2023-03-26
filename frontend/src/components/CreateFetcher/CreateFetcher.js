@@ -6,7 +6,7 @@ import styles from './CreateFetcher.module.css';
 
 import ConnectDiscord from '@/utils/ConnectDiscord/ConnectDiscord.js';
 import InputBox from '@/components/InputBox/InputBox.js';
-
+import UploadImage from '@/components/UploadImage/UploadImage.js'
 import createDAOServer from '@/abis/createDAOServer.js';
 
 export default function CreateFetcher(props) {
@@ -197,12 +197,14 @@ export default function CreateFetcher(props) {
                                 setValue={setSymbolInput}
                             />
                         </div>
-                        <div className={styles.inputbox} >
-                            <InputBox
-                                displayText={"Image URL"}
-                                value={tokenURIInput}
-                                setValue={setTokenURIInput}
+                        <div className={styles.inputbox} style={{display:"flex", gap:"10px"}}>
+                            Upload Logo: 
+                            <UploadImage 
+                                imageUrl={tokenURIInput}
+                                setImageUrl={setTokenURIInput}
+                                // setImageUrl={setTokenURIInput}
                             />
+                            
                         </div>
                         <div className={styles.inputbox} >
                             <InputBox
