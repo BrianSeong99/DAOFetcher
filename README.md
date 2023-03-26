@@ -10,7 +10,7 @@ DAOFetcher is an intelligent platform tool that allows users to quickly read sum
 
 A few of our team members have extensive experience running large DAOs. One thing they noticed was that understanding a given DAO and keeping up with all their updates becomes extremely unwieldly as people join more Discord servers. We wanted to solve the fundamental question:
 
-How can we improve DAO’s accessibility?
+How can we improve DAO accessibility?
 
 1. People are disoriented when they first join a DAO Discord server and are really overwhelmed with the large amounts of information thrown at them.
 2. Not everybody wants to (or have the means to) buy the standard NFT membership first to join and get to be a part of a given DAO's community. We wanted to offer a cheaper or lighter access solution for the community to get to know the DAO first before they make their purchase decision.
