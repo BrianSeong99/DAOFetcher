@@ -32,7 +32,9 @@ const ActionableImageCard: FC<ActionableImageCardProps> = (props) => {
           <h3 className="text-sm opacity-90">{props.description}</h3>
         </div>
 
-        <div className="border border-primary text-primary hover:bg-primary/10 px-6 py-2 scale-shadow-interactable rounded-full">
+        <div className="border border-primary text-primary hover:bg-primary/10 px-6 py-2 scale-shadow-interactable rounded-full"
+        onClick={props.handleMintModal}
+        >
           Mint Membership
         </div>
       </div>

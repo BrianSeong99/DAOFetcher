@@ -22,6 +22,7 @@ export default function Home() {
     setShowRegisterModal(true)
   };
   const handleMintModal = () => {
+    console.log("clicked mint")
     setShowMintModal(true)
   };
   
@@ -60,7 +61,9 @@ export default function Home() {
           // show={showModal}
           />
         }
-        <ServerLists/>
+        <ServerLists
+          handleMintModal={handleMintModal}
+        />
         {showMintModal &&
           <MintMembership
             onClose={() => setShowMintModal(false)}

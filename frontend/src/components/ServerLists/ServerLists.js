@@ -5,7 +5,7 @@ import getDAOServerList from "@/abis/getDAOServerList";
 import getDAOInfo from "@/abis/getDAOInfo";
 import { useServerList } from '../../utils/ServerListContext';
 
-const ServerLists = () => {
+const ServerLists = (props) => {
   const { serverList, handleServerListChange } = useServerList();
 
   useEffect(() => {
@@ -31,6 +31,7 @@ const ServerLists = () => {
         src={e.daoIconURL}
         // description={e.daoId}
         action={e.action}
+        handleMintModal={props.handleMintModal}
       />
     ))}
   </div>
