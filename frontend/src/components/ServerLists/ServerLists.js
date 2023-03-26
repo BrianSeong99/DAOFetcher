@@ -8,17 +8,17 @@ import { useServerList } from '../../utils/ServerListContext';
 const ServerLists = () => {
   const { serverList, handleServerListChange } = useServerList();
 
-  useEffect(() => {
-    console.log("here");
-    async function fetch() {
-      const daoServerAddressList = await getDAOServerList();
-      let ls = [];
-      for (let i = 0; i < daoServerAddressList.length; i++) {
-        ls.push(await getDAOInfo(daoServerAddressList[i]));
-      }
-      console.log(ls);
-      handleServerListChange(ls);
+  async function fetch() {
+    const daoServerAddressList = await getDAOServerList();
+    let ls = [];
+    for (let i = 0; i < daoServerAddressList.length; i++) {
+      ls.push(await getDAOInfo(daoServerAddressList[i]));
     }
+    console.log(ls);
+    handleServerListChange(ls);
+  }
+  
+  useEffect(() => {
     fetch();
   }, []);
 

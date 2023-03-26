@@ -110,6 +110,7 @@ export default function CreateFetcher(props) {
             prices,
         );
         console.log(response);
+        onClose();
     }
 
     const handleAdd = () => {
