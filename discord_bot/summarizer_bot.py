@@ -10,13 +10,16 @@ utc = datetime.timezone.utc
 
 load_dotenv()
 
-POLYBASE_URL = "https://example.com/ENDPOINT"
-
 openai.api_key = os.getenv("OPENAI_API_KEY")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
 SERVER_ID = int(os.getenv("SERVER_ID"))
 
+POLYBASE_URL = "https://testnet.polybase.xyz/v0/collections/ConversationMessages/records"
+headers = {
+    "Accept": "application/json",
+    # "X-Polybase-Signature": "v=0,t=1671884992,h=eth-personal-sign,sig=0xd5ba40aff8360200c802895e2106a9a8b809f99be35fcdf4d751e516256b17307afba149f48c1a8f4dde171cf43b6c225ec42cc641fda45894ab73ca5b4c738e/DAO-Fetcher"
+}
 # print(openai.api_key)
 # print(DISCORD_TOKEN)
 # print(CHANNEL_ID)
@@ -62,15 +65,13 @@ async def on_message(message):
     # print(f"messages: {messages}")
 
     if message.content.startswith('!summarize'):
-        await message.channel.send('Generating summary...this may take some time depending on the length of the messages in #announcements.')
+        #await message.channel.send('Generating summary...this may take some time depending on the length of the messages in #announcements.')
 
         # Find the announcements channel
         announcements_channel = discord.utils.get(client.get_all_channels(), name='announcements')
 
-        print(f'announcements: {announcements_channel}')
-
-        # # Get the last 10 messages from the channel
-        # messages = await announcements_channel.history(limit=10)
+        # # Get the last 5 messages from the channel
+        # messages = await announcements_channel.history(limit=5)
         
         # # Save the message contents in an array
         # message_contents = []
@@ -79,13 +80,25 @@ async def on_message(message):
 
         # print(message_contents)
 
-        # get the last message
-        msg_arr = []
-        async for msg in message.channel.history(limit=10):
-            #latest_message = msg
-            msg_arr.append(msg.content)
+        announcements_channel = client.get_channel(1088205336806182962)
 
-        latest_message = ''.join(msg_arr)
+        # get the last 5 messages from the channel
+        message_contents = []
+        async for msg in announcements_channel.history(limit=3):
+            message_contents.append(msg.content)
+
+        # # get the last 5 messages
+        # msg_arr = []
+        # async for msg in message.channel.history(limit=6):
+        #     #latest_message = msg
+        #     msg_arr.append(msg.content)
+
+        # # drop the first message (the command)
+        # msg_arr.pop(0)
+
+        latest_message = ''.join(message_contents)
+
+        print(f'latest_message: {latest_message}')
 
         text = f"Summarize the following text in bullet point format, while ignoring '@everyone' and including links where necessary: {latest_message}"
 
@@ -111,11 +124,12 @@ async def on_message(message):
         #summary_channel = client.get_channel(CHANNEL_ID)
         await summary_channel.send(f'-------------------- \n **Summary:** \n{summary}\n --------------------')
 
-        params = {
-            "summary": summary
+        data = {
+            "args": [summary]
         }
 
-        response = requests.get(POLYBASE_URL, params=params)
+        # send request
+        response = requests.post(POLYBASE_URL, json=data, headers=headers)
 
         # handle response
         if response.status_code == 200:
