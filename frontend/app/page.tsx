@@ -18,11 +18,15 @@ export default function Home() {
 
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showMintModal, setShowMintModal] = useState(false);
+
+  const [mintServerChoice, setMintServerChoice] = useState(null);
+
   const handleRegisterModal = () => {
     setShowRegisterModal(true)
   };
-  const handleMintModal = () => {
-    console.log("clicked mint")
+  const handleMintModal = (id) => {
+    console.log("clicked mint", id);
+    setMintServerChoice(id);
     setShowMintModal(true)
   };
   
@@ -68,7 +72,7 @@ export default function Home() {
         {showMintModal &&
           <MintMembership
             onClose={() => setShowMintModal(false)}
-            handleMintModal={handleMintModal}
+            mintServerChoice={mintServerChoice}
           />
         }
       </section >
