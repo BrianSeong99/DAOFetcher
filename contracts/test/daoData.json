@@ -1,8 +1,8 @@
 [
   {
     "daoName": "Test DAO",
-    "daoDescription": "A test DAO",
-    "adminURI": "https://example.com/metadata/admin.json",
+    "daoId": "18923891",
+    "daoIconURL": "https://example.com/metadata/admin.json",
     "memberships": {
       "names": ["Gold", "Silver"],
       "symbols": ["GLD", "SLV"],
@@ -10,28 +10,28 @@
         "https://example.com/metadata/gold.json",
         "https://example.com/metadata/silver.json"
       ],
-      "expirationDates": [15552000, 7776000],
+      "durations": [15552000, 7776000],
       "prices": [1, 0.5]
     }
   },
   {
     "daoName": "Random DAO",
-    "daoDescription": "An experimental DAO",
-    "adminURI": "https://random.example.com/metadata/admin.json",
+    "daoId": "2938492",
+    "daoIconURL": "https://random.example.com/metadata/admin.json",
     "memberships": {
       "names": ["Platinum"],
       "symbols": ["PLT"],
       "tokenURIs": [
         "https://random.example.com/metadata/platinum.json"
       ],
-      "expirationDates": [17280000],
+      "durations": [17280000],
       "prices": [1.5]
     }
   },
   {
     "daoName": "Innovative DAO",
-    "daoDescription": "A creative DAO",
-    "adminURI": "https://innovative.example.com/metadata/admin.json",
+    "daoId": "2930942893",
+    "daoIconURL": "https://innovative.example.com/metadata/admin.json",
     "memberships": {
       "names": ["Diamond", "Emerald"],
       "symbols": ["DMN", "EMR"],
@@ -39,14 +39,14 @@
         "https://innovative.example.com/metadata/diamond.json",
         "https://innovative.example.com/metadata/emerald.json"
       ],
-      "expirationDates": [19008000, 6480000],
+      "durations": [19008000, 6480000],
       "prices": [2, 0.75]
     }
   },
   {
     "daoName": "Dynamic DAO",
-    "daoDescription": "A flexible DAO",
-    "adminURI": "https://dynamic.example.com/metadata/admin.json",
+    "daoId": "2893849234",
+    "daoIconURL": "https://dynamic.example.com/metadata/admin.json",
     "memberships": {
       "names": ["Ruby", "Sapphire", "Diamond"],
       "symbols": ["RBY", "SPH", "DIA"],
@@ -55,14 +55,14 @@
         "https://dynamic.example.com/metadata/sapphire.json",
         "https://dynamic.example.com/metadata/diamond.json"
       ],
-      "expirationDates": [12960000, 5184000, 6480000],
+      "durations": [12960000, 5184000, 6480000],
       "prices": [1.25, 0.5, 0.1]
     }
   },
   {
     "daoName": "Nimble DAO",
-    "daoDescription": "A quick DAO",
-    "adminURI": "https://nimble.example.com/metadata/admin.json",
+    "daoId": "2839489234",
+    "daoIconURL": "https://nimble.example.com/metadata/admin.json",
     "memberships": {
       "names": ["Topaz", "Amethyst"],
       "symbols": ["TPZ", "AMT"],
@@ -70,14 +70,14 @@
         "https://nimble.example.com/metadata/topaz.json",
         "https://nimble.example.com/metadata/amethyst.json"
       ],
-      "expirationDates": [8640000, 4320000],
+      "durations": [8640000, 4320000],
       "prices": [0.9, 0.4]
     }
   },
   {
     "daoName": "Collaborative DAO",
-    "daoDescription": "A cooperative DAO",
-    "adminURI": "https://collaborative.example.com/metadata/admin.json",
+    "daoId": "283948923",
+    "daoIconURL": "https://collaborative.example.com/metadata/admin.json",
     "memberships": {
       "names": ["Citrine", "Garnet"],
       "symbols": ["CTR", "GRN"],
@@ -85,7 +85,7 @@
         "https://collaborative.example.com/metadata/citrine.json",
         "https://collaborative.example.com/metadata/garnet.json"
       ],
-      "expirationDates": [18144000, 2592000],
+      "durations": [18144000, 2592000],
       "prices": [1.5, 0.3]
     }
   }  

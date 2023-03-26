@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/DAOServer.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> DAOServer.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.12% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>32/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.44% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>34/36</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">192×</span>
+<span class="cline-any cline-yes">192×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48×</span>
+<span class="cline-any cline-yes">48×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48×</span>
+<span class="cline-any cline-yes">48×</span>
+<span class="cline-any cline-yes">48×</span>
+<span class="cline-any cline-yes">48×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48×</span>
+<span class="cline-any cline-yes">96×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144×</span>
+<span class="cline-any cline-yes">144×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">67×</span>
+<span class="cline-any cline-yes">67×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">67×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+&nbsp;
+import "@openzeppelin/contracts/utils/Strings.sol";
+import "contracts/NFTMembership.sol";
+&nbsp;
+contract DAOServer {
+    using Strings for uint256;
+&nbsp;
+    struct MembershipType {
+        NFTMembership token;
+        string name;
+        string symbol;
+        string tokenURI;
+        uint256 expirationDate;
+        uint256 price;
+    }
+&nbsp;
+    address public admin;
+    address public factoryAddress;
+    string daoName = "";
+    string daoDescription = "";
+    MembershipType[] public membershipTypes;
+&nbsp;
+    mapping(address =&gt; uint256) public userMembershipType;
+    mapping(address =&gt; uint256) public userMembershipTokenId;
+    mapping(uint256 =&gt; uint256) public membershipTypeTokenCount;
+    mapping(uint256 =&gt; uint256) public tokenExpiryTimestamp;
+&nbsp;
+    modifier onlyAdmin() {
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(msg.sender == admin || msg.sender == factoryAddress, "OnlyAdmin");
+        _;
+    }
+&nbsp;
+    constructor(
+        address _admin,
+        string memory _daoName,
+        string memory _daoDescription,
+        string memory _adminURI, 
+        string[] memory _names, 
+        string[] memory _symbols, 
+        string[] memory _tokenURIes, 
+        uint256[] memory _expirationDates, 
+        uint256[] memory _prices
+    ) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(_names.length &gt; 0 &amp;&amp; _names.length &lt;= 3 &amp;&amp; _names.length == _symbols.length &amp;&amp; _names.length == _tokenURIes.length &amp;&amp; _names.length == _expirationDates.length &amp;&amp; _names.length == _prices.length, "length error");
+        
+        daoName = _daoName;
+        daoDescription = _daoDescription;
+&nbsp;
+        factoryAddress = msg.sender;
+        admin = _admin;
+        addNewMembershipType("Admin", "ADM", _adminURI, 100000000000000000000, 0);
+        mintAdmin(admin);
+        
+        for (uint256 i = 0; i &lt; _names.length; i ++) {
+            addNewMembershipType(_names[i], _symbols[i], _tokenURIes[i], _expirationDates[i], _prices[i]);
+        }
+    }
+&nbsp;
+    function addNewMembershipType(string memory _name, string memory _symbol, string memory _tokenURI, uint256 _expirationDate, uint256 _price) public onlyAdmin {
+        NFTMembership newToken = new NFTMembership(_name, _symbol);
+        MembershipType memory newMembershipType = MembershipType({
+            token: newToken,
+            name: _name,
+            symbol: _symbol,
+            tokenURI: _tokenURI,
+            expirationDate: _expirationDate,
+            price: _price
+        });
+        membershipTypes.push(newMembershipType);
+    }
+&nbsp;
+    function mintAdmin(address _to) public onlyAdmin {
+        mintMembership(_to, 0);
+    }
+&nbsp;
+    function mintNoneAdminMembership(address _to, uint256 _type) public payable {
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(_type &lt; membershipTypes.length, "Invalid membership type.");
+        require(msg.value &gt;= membershipTypes[_type].price, "Insufficient payment.");
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(_type != 0, "Can't mint admin");
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (userMembershipType[_to] != 0) {
+<span class="cstat-no" title="statement not covered" >            require(isTokenExpired(userMembershipTokenId[_to]), "NFT Not Expired yet, we don't support duplicate access yet")</span>;
+        }
+        mintMembership(_to, _type);
+    }
+&nbsp;
+    function mintMembership(address _to, uint256 _type) internal {
+        uint256 tokenId = _type * 1e12 + membershipTypeTokenCount[_type]; // Generate a unique token ID based on the membership type and counter
+        membershipTypes[_type].token.mintToken(_to, tokenId);
+        membershipTypes[_type].token.setTokenURI(tokenId, membershipTypes[_type].tokenURI);
+        uint256 expirationDate = membershipTypes[_type].expirationDate;
+        tokenExpiryTimestamp[tokenId] = expirationDate;
+        userMembershipType[_to] = _type;
+        userMembershipTokenId[_to] = tokenId;
+        membershipTypeTokenCount[_type]++;
+    }
+&nbsp;
+    function getAllMembershipTypes() public view returns (MembershipType[] memory) {
+        return membershipTypes;
+    }
+&nbsp;
+    function isUserMember(address _user) public view returns (bool) {
+        bool exist = membershipTypes[userMembershipType[_user]].token.exists(userMembershipTokenId[_user]);
+        return exist &amp;&amp; !isTokenExpired(userMembershipTokenId[_user]);
+    }
+&nbsp;
+    function isTokenExpired(uint256 tokenId) public view returns (bool) {
+        return block.timestamp &gt; tokenExpiryTimestamp[tokenId];
+    }
+&nbsp;
+    function getTokenExpireDate(uint256 tokenId) public view returns (uint256) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (!isTokenExpired(tokenId)) {
+            return tokenExpiryTimestamp[tokenId];
+        } else {
+<span class="cstat-no" title="statement not covered" >            return 0;</span>
+        }
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Mar 24 2023 02:05:31 GMT-0700 (Pacific Daylight Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

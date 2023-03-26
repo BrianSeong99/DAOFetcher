@@ -14,23 +14,23 @@ contract DAOServerFactory {
 
     function createDAOServer(
         string memory _daoName, 
-        string memory _daoDescription, 
-        string memory _adminURI, 
+        string memory _daoIconURL, 
+        string memory _daoId,
         string[] memory _names, 
         string[] memory _symbols, 
         string[] memory _tokenURIes, 
-        uint256[] memory _expirationDates, 
+        uint256[] memory _durations, 
         uint256[] memory _prices
     ) public {
         DAOServer newDAOServer = new DAOServer(
             msg.sender, 
             _daoName, 
-            _daoDescription, 
-            _adminURI, 
+            _daoIconURL, 
+            _daoId, 
             _names,
             _symbols,
             _tokenURIes,
-            _expirationDates,
+            _durations,
             _prices
         );
         daoServers.push(address(newDAOServer));

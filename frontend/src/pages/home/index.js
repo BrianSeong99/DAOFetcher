@@ -30,7 +30,7 @@ export default function Home() {
         </div>
         <div class="navbar-container">
           <button onClick={handleModal}>Register Your Server</button>
-          <ConnectWallet />
+          {/* <ConnectWallet /> */}
         </div>
         <div class="content-container">
           <div>This is Content</div>
