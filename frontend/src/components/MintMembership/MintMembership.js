@@ -4,6 +4,7 @@ import { ethers } from 'ethers';
 import Image from "next/image";
 import styles from './MintMembership.module.css';
 import getDAOMemberships from "../../abis/getDAOMemberships";
+import mintMembership from "../../abis/mintMembership";
 import { useServerList } from '../../utils/ServerListContext';
 
 
@@ -14,10 +15,12 @@ export default function MintMembership(props) {
 
     const [daoMemberships, setDaoMemberships] = useState([]);
     const { serverList, handleServerListChange } = useServerList();
+    const [currentDAOAddr, setCurrentDAOAddr] = useState();
 
     const handleDAOMembershipLists = async () => {
         const mintingServer = serverList.filter(ele => ele.daoId === mintServerChoice);
         console.log("mintingServer", mintingServer);
+        setCurrentDAOAddr(mintingServer[0].DAOServerAddress);
         const response = await getDAOMemberships(mintingServer[0].DAOServerAddress);
         setDaoMemberships(response.slice(2));
     }
@@ -26,8 +29,10 @@ export default function MintMembership(props) {
         handleDAOMembershipLists();
     }, [])
 
-    const handleMint = (index) => {
+    const handleMint = async (index, price) => {
         console.log("mint ", index)
+        const response = await mintMembership(currentDAOAddr, index+2, price);
+        console.log(response);
     }
     return (
         <div id="myModal" className={styles.modal}>
@@ -54,7 +59,7 @@ export default function MintMembership(props) {
                                     id={index}
                                     className={styles.mintButton}
                                     style={{ display: "flex" }}
-                                    onClick={() => handleMint(index)}
+                                    onClick={() => handleMint(index, membership.price)}
                                 >
                                     <div>Mint</div>
                                     <div style={{ fontWeight: "300", fontStyle: "italic", fontSize: "1.5rem", paddingLeft: "5px", paddingRight: "10px" }}>{ethers.utils.formatEther(membership.price)}</div>
