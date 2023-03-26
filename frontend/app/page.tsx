@@ -9,6 +9,7 @@ import "@/styles/interactions.css";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import CreateFetcher from '@/components/CreateFetcher/CreateFetcher.js';
 import ServerLists from '@/components/ServerLists/ServerLists.js';
+import MintMembership from '@/components/MintMembership/MintMembership.js';
 import Image from "next/image";
 
 export default function Home() {
@@ -17,12 +18,19 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const handleModal = () => {
     setShowModal(true);
+  }
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showMintModal, setShowMintModal] = useState(false);
+  const handleRegisterModal = () => {
+    setShowRegisterModal(true)
+  };
+  const handleMintModal = () => {
+    setShowMintModal(true)
   };
   
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     let retrieved = searchParams.get('code');
-    console.log("retrieved code", searchParams, retrieved)
     if (retrieved !== null) {
       setCode(retrieved)
       setDiscordConnected(true);
@@ -41,23 +49,28 @@ export default function Home() {
           <h1 className="font-bold text-4xl">Servers</h1>
 
           <NavigationBar
-            handleModal={handleModal}
-            showModal={showModal}
+            handleRegisterModal={handleRegisterModal}
+            showRegisterModal={showRegisterModal}
           />
         </div>
 
         <br />
-        {showModal &&
+        {showRegisterModal &&
           <CreateFetcher
-            onClose={() => setShowModal(false)}
+            onClose={() => setShowRegisterModal(false)}
             code={code}
             discordConnected={discordConnected}
           // show={showModal}
           />
         }
         <ServerLists/>
-       
-      </section>
-    </div>
+        {showMintModal &&
+          <MintMembership
+            onClose={() => setShowMintModal(false)}
+            handleMintModal={handleMintModal}
+          />
+        }
+      </section >
+    </div >
   );
 }

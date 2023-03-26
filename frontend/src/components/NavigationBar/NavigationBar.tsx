@@ -7,15 +7,15 @@ import Uilbell from "@iconscout/react-unicons/icons/uil-bell";
 
 const NavigationBar: NextPage = (props) => {
   const {
-    handleModal,
-    showModal
+    handleRegisterModal,
+    showRegisterModal
   } = props
   return (
     <div className="flex items-center gap-4">
       <ConnectButton />
 
       <button className="bg-primary text-white px-6 py-2 scale-shadow-interactable rounded-full"
-        onClick={handleModal}
+        onClick={handleRegisterModal}
       >
         Register Server
       </button>
