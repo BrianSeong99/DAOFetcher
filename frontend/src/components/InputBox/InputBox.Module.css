@@ -1,4 +1,4 @@
-.inputBox {
+.inputCont {
   width: 40%;
   height: 45px;
   /* box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1); */
@@ -6,4 +6,9 @@
   background-color: white;
   color: black;
   margin-top: 15px;
+}
+
+.inputBox {
+  border-radius: 20px;
+
 }

@@ -29,6 +29,7 @@ export default function CreateFetcher(props) {
     const [tokenURIs, setTokenURIs] = useState([]);
     const [durations, setDurations] = useState([]);
     const [prices, setPrices] = useState([]);
+    const [numTiers, setNumTiers] = useState(1);
 
     const DISCORD_IMG_BASEURL = 'https://cdn.discordapp.com/'
 
@@ -77,7 +78,7 @@ export default function CreateFetcher(props) {
                 console.error('Error exchanging authorization code for access token:', error);
             });
     }, []);
-    
+
     const convertGuildInfo = (adminGuilds) => {
         let decoded_guilds = []
         console.log(adminGuilds);
@@ -99,6 +100,7 @@ export default function CreateFetcher(props) {
     }
 
     const handleCreate = async () => {
+        console.log("handle create", names, symbols, tokenURIs, durations, prices)
         const response = await createDAOServer(
             adminGuildsList[serverSelection].dao_name,
             adminGuildsList[serverSelection].icon_url,
@@ -113,11 +115,20 @@ export default function CreateFetcher(props) {
     }
 
     const handleAdd = () => {
+        setNumTiers(numTiers + 1)
         setNames([...names, nameInput]);
         setSymbols([...symbols, symbolInput]);
         setTokenURIs([...tokenURIs, tokenURIInput]);
         setDurations([...durations, durationInput]);
         setPrices([...prices, priceInput]);
+    }
+
+    const deleteTier = (e) => {
+        setNames([...names.slice(0, e), ...names.slice(e + 1)])
+        setSymbols([...symbols.slice(0, e), ...symbols.slice(e + 1)])
+        setTokenURIs([...tokenURIs.slice(0, e), ...tokenURIs.slice(e + 1)])
+        setDurations([...durations.slice(0, e), ...durations.slice(e + 1)])
+        setPrices([...prices.slice(0, e), ...prices.slice(e + 1)])
     }
 
     return (
@@ -131,7 +142,7 @@ export default function CreateFetcher(props) {
                     </div>
                     <div>
                         <div className={styles.title}>Connect to your discord account</div>
-                        <div className={styles.caption}><ConnectDiscord discordConnected={discordConnected}/></div>
+                        <div className={styles.caption}><ConnectDiscord discordConnected={discordConnected} /></div>
                     </div>
                 </div>
                 <div className={styles.step}>
@@ -140,9 +151,9 @@ export default function CreateFetcher(props) {
                     </div>
                     <div>
                         <div className={styles.title}>Choose discord fetcher that you wish to create</div>
-                        <div className={styles.caption} style={{display:"flex"}}>
+                        <div className={styles.caption} style={{ display: "flex" }}>
                             {Object.keys(adminGuildsList).length !== 0 &&
-                                adminGuildsList.map((guild) => 
+                                adminGuildsList.map((guild) =>
                                     <button
                                         key={guild.id}
                                         onClick={() => handleServerClick(guild.id)}
@@ -151,9 +162,9 @@ export default function CreateFetcher(props) {
                                         <Image
                                             className={
                                                 guild.id === selectedGuildId
-                                                  ? styles.circularIconHighlight
-                                                  : styles.circularIcon
-                                              }
+                                                    ? styles.circularIconHighlight
+                                                    : styles.circularIcon
+                                            }
                                             src={guild.icon_url}
                                             alt={guild.dao_name}
                                             width={50}
@@ -170,36 +181,36 @@ export default function CreateFetcher(props) {
                         <div className={styles.circle}>3</div>
                     </div>
                     <div>
-                        <div className={styles.title}>Define the membership tiers</div>
-                        <div className={styles.caption} >
+                        <div className={styles.title} style={{ marginBottom: "10px" }}>Define the membership tiers</div>
+                        <div className={styles.inputbox} >
                             <InputBox
                                 displayText={"Name"}
                                 value={nameInput}
                                 setValue={setNameInput}
                             />
                         </div>
-                        <div className={styles.caption} >
+                        <div className={styles.inputbox} >
                             <InputBox
                                 displayText={"Symbol"}
                                 value={symbolInput}
                                 setValue={setSymbolInput}
                             />
                         </div>
-                        <div className={styles.caption} >
+                        <div className={styles.inputbox} >
                             <InputBox
                                 displayText={"Image URL"}
                                 value={tokenURIInput}
                                 setValue={setTokenURIInput}
                             />
                         </div>
-                        <div className={styles.caption} >
+                        <div className={styles.inputbox} >
                             <InputBox
                                 displayText={"Durations"}
                                 value={durationInput}
                                 setValue={setDurationInput}
                             />
                         </div>
-                        <div className={styles.caption} >
+                        <div className={styles.inputbox} >
                             <InputBox
                                 displayText={"Price"}
                                 value={priceInput}
@@ -207,29 +218,38 @@ export default function CreateFetcher(props) {
                             />
                         </div>
                         <div>
-                            <button 
-                                className={names.length>2 ? styles.addButtonDisabled : styles.addButton}
+                            <button
+                                className={names.length > 2 ? styles.addButtonDisabled : styles.addButton}
                                 onClick={handleAdd}
-                                disabled={names.length>2}
+                                disabled={names.length > 2}
                             >
                                 Add
                             </button>
                         </div>
-                        {/* below code needs to be updated into table */}
                         <div className={styles.caption}>
                             {names.length !== 0 &&
-                                names.map((_, index) => 
-                                    (<div key={index}>
-                                        {names[index]}, {symbols[index]}, {tokenURIs[index]},
-                                        {durations[index]}, {prices[index]}
-                                    </div>)
+                                names.map((_, index) =>
+                                (
+                                    <div key={index} className={styles.tierDescription}>
+                                        <div style={{ fontSize: "1rem", fontStyle: "italic", fontWeight: "700", marginLeft: "10px" }}>tier {index + 1}:</div>
+                                        <div className={styles.tierTitle}>Tier Name:</div>
+                                        <div className={styles.tierContent}>{names[index]}</div>
+                                        <div className={styles.tierTitle}>Tier Symbol: </div>
+                                        <div className={styles.tierContent}>{symbols[index]}</div>
+                                        <div className={styles.tierTitle}> Duration: </div>
+                                        <div className={styles.tierContent}>{durations[index]} days</div>
+                                        <div className={styles.tierTitle}>TierPrice: </div>
+                                        <div className={styles.tierContent}>{prices[index]}</div>
+                                        <button className={styles.deleteTier} onClick={() => deleteTier(index)}>&times;</button>
+                                    </div>
+                                )
                                 )
                             }
                         </div>
                     </div>
                 </div>
                 <div >
-                    <button 
+                    <button
                         className={styles.createButton}
                         onClick={handleCreate}
                     >
