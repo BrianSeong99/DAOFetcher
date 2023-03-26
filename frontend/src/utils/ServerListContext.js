@@ -22,10 +22,11 @@ export const ServerListProvider = ({ children }) => {
   async function fetch() {
     const daoServerAddressList = await getDAOServerList();
     let ls = [];
+    if (daoServerAddressList) [
     for (let i = 0; i < daoServerAddressList.length; i++) {
       ls.push(await getDAOInfo(daoServerAddressList[i]));
     }
-    handleServerListChange(ls);
+    handleServerListChange(ls);]
   }
 
   useEffect(() => {
