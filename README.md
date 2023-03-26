@@ -20,11 +20,11 @@ How can we improve DAO accessibility?
 
 All contracts are deployed to the following chains:
 
-- [Polygon](https://mumbai.polygonscan.com/address/0xC51488FC5fD890a110282cB8a6Faf947A5caCD6E#code)
-- [Optimism](https://goerli-optimism.etherscan.io/address/0xAa11bE646F0725B61c2d5595245Db94b3F6698C6#code)
-- Scroll
-- Mantle
-- Gnosis Chain
+- [Polygon](https://mumbai.polygonscan.com/address/0xC51488FC5fD890a110282cB8a6Faf947A5caCD6E#code): 0xC51488FC5fD890a110282cB8a6Faf947A5caCD6E
+- [Optimism](https://goerli-optimism.etherscan.io/address/0xAa11bE646F0725B61c2d5595245Db94b3F6698C6#code): 0xAa11bE646F0725B61c2d5595245Db94b3F6698C6
+- Scroll: 0xAa11bE646F0725B61c2d5595245Db94b3F6698C6
+- Mantle: 0xAa11bE646F0725B61c2d5595245Db94b3F6698C6
+- Gnosis Chain: 0xAa11bE646F0725B61c2d5595245Db94b3F6698C6
 
 ## Frameworks and Tools
 
