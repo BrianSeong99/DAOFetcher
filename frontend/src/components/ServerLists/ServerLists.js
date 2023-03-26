@@ -36,6 +36,7 @@ const ServerLists = (props) => {
         name={e.daoName}
         src={e.daoIconURL}
         id={e.daoId}
+        isMember={e.isUserMember}
         action={e.action}
         handleMintModal={props.handleMintModal}
       />

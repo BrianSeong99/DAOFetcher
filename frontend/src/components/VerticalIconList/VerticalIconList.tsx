@@ -19,6 +19,7 @@ const VerticalIconList: NextPage<VerticalIconListProps> = ({
   return (
     <div className="flex flex-col items-center gap-4">
       {serverList.map((e) => (
+        e.isUserMember &&
         <button
           key={e.daoName}
           className={

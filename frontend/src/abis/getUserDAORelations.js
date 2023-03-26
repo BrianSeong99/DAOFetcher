@@ -3,7 +3,7 @@ import DAOServerFactoryABI from "./abis/DAOServerFactory.json";
 import { DAOServerFactoryAddress } from "../constants/ContractAddress";
 import { ethers } from "ethers";
 
-export default async function getDAOServerList() {
+export default async function getUserDAORelations() {
   const signer = await getSigner();
   if (signer) {
     const factory = new ethers.Contract(
@@ -11,8 +11,9 @@ export default async function getDAOServerList() {
       DAOServerFactoryABI.abi,
       signer
     );
-    const daoServers = await factory.getAllDAOServers();
-    return daoServers
+    const userRelations = await factory.getUserDAOServerRelations(await signer.getAddress());
+    console.log("userRelations: ", userRelations);
+    return userRelations
   } else {
     console.log("No Wallet Connected");
   }
