@@ -14,35 +14,12 @@ import Image from "next/image";
 export default function Home() {
   const [code, setCode] = useState("")
   const [discordConnected, setDiscordConnected] = useState(false);
-  const [serverList, setServerList] = useState([]);
-
-  const mockServerList = [
-    {
-      src: "https://cdn.stamp.fyi/space/aave.eth?s=164",
-      name: "Aave",
-      description:
-        "Non-custodial protocol to earn interest on deposits and borrow assets.",
-      action: () => {},
-    },
-    {
-      src: "https://avatars.githubusercontent.com/u/77035304?s=280&v=4",
-      name: "Taho",
-      description: "Community owned, Open Source, Web3 wallet.",
-      action: () => {},
-    },
-    {
-      src: "https://avatars.githubusercontent.com/u/58791460?s=280&v=4",
-      name: "Optimism",
-      description: "Layer 2 scaling solution for Ethereum.",
-      action: () => {},
-    },
-  ];
   const [showModal, setShowModal] = useState(false);
   const handleModal = () => {
     setShowModal(true);
   };
+  
   useEffect(() => {
-    // Get the authorization code from the URL query parameters
     const searchParams = new URLSearchParams(window.location.search);
     let retrieved = searchParams.get('code');
     console.log("retrieved code", searchParams, retrieved)
@@ -55,8 +32,6 @@ export default function Home() {
     if (retrieved !== null) {
       setShowModal(true);
     }
-    // Use the authorization code to exchange it for an access token
-    // ...
   }, []);
 
   return (
@@ -80,10 +55,7 @@ export default function Home() {
           // show={showModal}
           />
         }
-        <ServerLists
-          serverList={serverList}
-          setServerList={setServerList}
-        />
+        <ServerLists/>
        
       </section>
     </div>

@@ -215,6 +215,7 @@ export default function CreateFetcher(props) {
                                 Add
                             </button>
                         </div>
+                        {/* below code needs to be updated into table */}
                         <div className={styles.caption}>
                             {names.length !== 0 &&
                                 names.map((_, index) => 
