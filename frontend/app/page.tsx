@@ -15,10 +15,7 @@ import Image from "next/image";
 export default function Home() {
   const [code, setCode] = useState("")
   const [discordConnected, setDiscordConnected] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const handleModal = () => {
-    setShowModal(true);
-  }
+
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showMintModal, setShowMintModal] = useState(false);
   const handleRegisterModal = () => {
@@ -38,7 +35,7 @@ export default function Home() {
     retrieved = searchParams.get('show');
     console.log("retrieved code", searchParams, retrieved);
     if (retrieved !== null) {
-      setShowModal(true);
+      setShowRegisterModal(true);
     }
   }, []);
 
