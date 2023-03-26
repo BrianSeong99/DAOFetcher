@@ -12,6 +12,8 @@ export default async function getDAOServerList() {
       signer
     );
     const daoServers = await factory.getAllDAOServers();
+    const userRelations = await factory.getUserDAOServerRelations(await signer.getAddress());
+    console.log("userRelations: ", userRelations);
     return daoServers
   } else {
     console.log("No Wallet Connected");

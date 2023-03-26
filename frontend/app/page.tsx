@@ -9,20 +9,26 @@ import "@/styles/interactions.css";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import CreateFetcher from '@/components/CreateFetcher/CreateFetcher.js';
 import ServerLists from '@/components/ServerLists/ServerLists.js';
+import MintMembership from '@/components/MintMembership/MintMembership.js';
 import Image from "next/image";
 
 export default function Home() {
   const [code, setCode] = useState("")
   const [discordConnected, setDiscordConnected] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const handleModal = () => {
-    setShowModal(true);
+
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showMintModal, setShowMintModal] = useState(false);
+  const handleRegisterModal = () => {
+    setShowRegisterModal(true)
+  };
+  const handleMintModal = () => {
+    console.log("clicked mint")
+    setShowMintModal(true)
   };
   
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     let retrieved = searchParams.get('code');
-    console.log("retrieved code", searchParams, retrieved)
     if (retrieved !== null) {
       setCode(retrieved)
       setDiscordConnected(true);
@@ -30,7 +36,7 @@ export default function Home() {
     retrieved = searchParams.get('show');
     console.log("retrieved code", searchParams, retrieved);
     if (retrieved !== null) {
-      setShowModal(true);
+      setShowRegisterModal(true);
     }
   }, []);
 
@@ -41,23 +47,31 @@ export default function Home() {
           <h1 className="font-bold text-4xl">Servers</h1>
 
           <NavigationBar
-            handleModal={handleModal}
-            showModal={showModal}
+            handleRegisterModal={handleRegisterModal}
+            showRegisterModal={showRegisterModal}
           />
         </div>
 
         <br />
-        {showModal &&
+        {showRegisterModal &&
           <CreateFetcher
-            onClose={() => setShowModal(false)}
+            onClose={() => {setShowRegisterModal(false)}}
             code={code}
             discordConnected={discordConnected}
           // show={showModal}
           />
         }
-        <ServerLists/>
-       
-      </section>
-    </div>
+        <ServerLists
+          handleMintModal={handleMintModal}
+          showRegisterModal={showRegisterModal}
+        />
+        {showMintModal &&
+          <MintMembership
+            onClose={() => setShowMintModal(false)}
+            handleMintModal={handleMintModal}
+          />
+        }
+      </section >
+    </div >
   );
 }

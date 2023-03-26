@@ -11,15 +11,20 @@ export default async function getDAOInfo(DAOServerAddress) {
       DAOServerABI.abi,
       signer
     );
+    console.log("userAddress:", userAddress);
     const daoName = await daoServer.daoName();
     const daoIconURL = await daoServer.daoIconURL();
     const daoId = await daoServer.daoId();
     const isUserMember = await daoServer.isUserMember(userAddress);
+    const tokenExpiryTimestamp = await daoServer.tokenExpiryTimestamp(
+      await daoServer.userMembershipTokenId(userAddress)
+    );
     return {
       daoName: daoName,
       daoIconURL: daoIconURL,
       daoId: daoId,
-      isUserMember: isUserMember
+      isUserMember: isUserMember,
+      tokenExpiryTimestamp: tokenExpiryTimestamp
     }
   } else {
     console.log("No Wallet Connected");

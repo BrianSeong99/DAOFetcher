@@ -11,16 +11,16 @@ import styles from "@/styles/Home.module.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [showModal, setShowModal] = useState(false);
+  const [showRegisterModal, showSetRegisterModal] = useState(false);
   const handleModal = () => {
-    setShowModal(true)
+    showSetRegisterModal(true)
   };
   return (
     <>
-      {showModal &&
+      {showRegisterModal &&
         <CreateFetcher
-          onClose={() => setShowModal(false)}
-        // show={showModal}
+          onClose={() => showSetRegisterModal(false)}
+        // show={showRegisterModal}
         />
       }
       <div class="container">

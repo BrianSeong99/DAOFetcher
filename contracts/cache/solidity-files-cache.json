@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/jinwooseong/Developer/Hackathon/2023ScalingEth/DAOFetcher/contracts/contracts/DAOServer.sol": {
-      "lastModificationDate": 1679735396061,
-      "contentHash": "e875f7263500cd092ace5f61d6288178",
+      "lastModificationDate": 1679799978392,
+      "contentHash": "fb2c43c71862bf65106e903e97674d5c",
       "sourceName": "contracts/DAOServer.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -443,7 +443,7 @@
       ]
     },
     "/Users/jinwooseong/Developer/Hackathon/2023ScalingEth/DAOFetcher/contracts/contracts/DAOServerFactory.sol": {
-      "lastModificationDate": 1679733710456,
+      "lastModificationDate": 1679793676560,
       "contentHash": "bde819d196ed013bf69da022ce240ba7",
       "sourceName": "contracts/DAOServerFactory.sol",
       "solcConfig": {

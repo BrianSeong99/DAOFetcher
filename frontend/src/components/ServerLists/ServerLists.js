@@ -5,7 +5,9 @@ import getDAOServerList from "@/abis/getDAOServerList";
 import getDAOInfo from "@/abis/getDAOInfo";
 import { useServerList } from '../../utils/ServerListContext';
 
-const ServerLists = () => {
+const ServerLists = (props) => {
+  const { showRegisterModal } = props;
+
   const { serverList, handleServerListChange } = useServerList();
 
   async function fetch() {
@@ -22,6 +24,10 @@ const ServerLists = () => {
     fetch();
   }, []);
 
+  useEffect(() => {
+    fetch();
+  }, [showRegisterModal]);
+
   return (
     <div className="grid grid-cols-4 items-center gap-4">
     {Array.isArray(serverList) && serverList.length != 0 && serverList.map((e) => (
@@ -31,6 +37,7 @@ const ServerLists = () => {
         src={e.daoIconURL}
         // description={e.daoId}
         action={e.action}
+        handleMintModal={props.handleMintModal}
       />
     ))}
   </div>
