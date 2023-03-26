@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import PulseLoader from "react-spinners/PulseLoader";
+import NoSSR from "@/components/NoSSR";
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -116,147 +117,150 @@ const ProtocolChat: NextPage = () => {
   };
 
   return (
-    <div className="center w-full ">
-      <div className="max-w-7xl h-screen w-full pt-6 flex flex-col">
-        {/** Header */}
-        <div className="flex items-end justify-between">
-          <h1 className="font-bold text-4xl">
-            {capitalizeFirst(pathname!.substring(1))} Chat
-          </h1>
+    <NoSSR>
+      <div className="center w-full ">
+        <div className="max-w-7xl h-screen w-full pt-6 flex flex-col">
+          {/** Header */}
+          <div className="flex items-end justify-between">
+            <h1 className="font-bold text-4xl">
+              {capitalizeFirst(pathname!.substring(1))} Chat
+            </h1>
 
-          <NavigationBar />
-        </div>
+            <NavigationBar />
+          </div>
 
-        {/** States - Loading, connected, disconnected */}
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={
-              account.isConnecting
-                ? "loading"
-                : account.isConnected
-                ? "connected"
-                : "disconnected"
-            }
-            animate={{
-              y: [100, 0],
-              opacity: [0, 1],
-            }}
-            exit={{ y: -10, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="h-full flex flex-1"
-          >
-            {account.isConnecting ? (
-              <div className="flex-1 flex-col h-full center">
-                <Image
-                  src="https://assets.website-files.com/5d5e2ff58f10c53dcffd8683/5d99f791e288d8a01aa668e2_composition-11.svg"
-                  width={512}
-                  height={288}
-                  alt=""
-                  className="rounded-2xl"
-                />
-                <br />
-                <h1 className="text-2xl font-bold">
-                  Loading {capitalizeFirst(pathname!.substring(1))} chat...
-                </h1>
-                <h2 className="text-sm">
-                  Please wait while we load your conversation.
-                </h2>
-              </div>
-            ) : account.isConnected ? (
-              <div className="flex flex-col flex-1 h-full ">
-                <div>
-                  <div> Summaries</div>
-
-                  <div>Chats</div>
+          {/** States - Loading, connected, disconnected */}
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={
+                account.isConnecting
+                  ? "loading"
+                  : account.isConnected
+                  ? "connected"
+                  : "disconnected"
+              }
+              animate={{
+                y: [100, 0],
+                opacity: [0, 1],
+              }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="h-full flex flex-1"
+            >
+              {account.isConnecting ? (
+                <div className="flex-1 flex-col h-full center">
+                  <Image
+                    src="https://assets.website-files.com/5d5e2ff58f10c53dcffd8683/5d99f791e288d8a01aa668e2_composition-11.svg"
+                    width={512}
+                    height={288}
+                    alt=""
+                    className="rounded-2xl"
+                  />
+                  <br />
+                  <h1 className="text-2xl font-bold">
+                    Loading {capitalizeFirst(pathname!.substring(1))} chat...
+                  </h1>
+                  <h2 className="text-sm">
+                    Please wait while we load your conversation.
+                  </h2>
                 </div>
+              ) : account.isConnected ? (
+                <div className="flex flex-col flex-1 h-full ">
+                  <div>
+                    <div> Summary</div>
+                  </div>
 
-                <div className="flex flex-col flex-1 overflow-scroll">
-                  {messages
-                    .sort((a, b) => a.timestamp - b.timestamp)
-                    .map((message, i) => (
-                      <div
-                        key={message.timestamp}
-                        className="border-t border-primary/20 py-4"
-                      >
-                        <ConversationMessage
-                          actor={message.actor}
-                          message={message.message}
-                        />
-                      </div>
-                    ))}
-                </div>
-
-                <div className="flex w-full mb-4 space-x-4 center">
-                  <button
-                    onClick={handleClearChat}
-                    className="center mb-8 border rounded-full p-2 scale-shadow-interactable"
-                  >
-                    <UilTrash />
-                  </button>
-                  <div className="w-full bg-surface/50">
-                    <form
-                      id="message-form"
-                      method="post"
-                      onSubmit={handleSubmit}
-                      className="flex flex-col justify-center items-center"
-                    >
-                      <div className="flex w-full bg-primary/20 rounded-full items-center px-6 py-2 ">
-                        <input
-                          name="message"
-                          className="flex-1 bg-transparent ring-transparent outline-none mr-2 text-lg"
-                          disabled={isSending || isClearing}
-                        />
-                        {!isSending ? (
-                          <button
-                            form="message-form"
-                            type="submit"
-                            className="opacity-50 scale-shadow-interactable rounded-full p-1 h-8"
-                          >
-                            <UilMessage />
-                          </button>
-                        ) : (
-                          <PulseLoader
-                            size={8}
-                            color="green"
-                            className="h-8 center"
+                  <div className="flex flex-col flex-1 overflow-scroll mt-4">
+                    {messages
+                      .sort((a, b) => a.timestamp - b.timestamp)
+                      .map((message, i) => (
+                        <div
+                          key={message.timestamp}
+                          className={
+                            (i != 0 ? "border-t " : "border-non ") +
+                            " border-primary/20 py-4"
+                          }
+                        >
+                          <ConversationMessage
+                            actor={message.actor}
+                            message={message.message}
                           />
-                        )}
-                      </div>
-                      <p className="opacity-50 mt-2">
-                        {isClearing
-                          ? "Clearing chat"
-                          : isSending
-                          ? "Sending message"
-                          : "Input a question to ask the server"}
-                      </p>
-                    </form>
+                        </div>
+                      ))}
+                  </div>
+
+                  <div className="flex w-full mb-4 space-x-4 center">
+                    <button
+                      onClick={handleClearChat}
+                      className="center mb-8 border rounded-full p-2 scale-shadow-interactable"
+                    >
+                      <UilTrash />
+                    </button>
+                    <div className="w-full bg-surface/50">
+                      <form
+                        id="message-form"
+                        method="post"
+                        onSubmit={handleSubmit}
+                        className="flex flex-col justify-center items-center"
+                      >
+                        <div className="flex w-full bg-primary/20 rounded-full items-center px-6 py-2 ">
+                          <input
+                            name="message"
+                            className="flex-1 bg-transparent ring-transparent outline-none mr-2 text-lg"
+                            disabled={isSending || isClearing}
+                          />
+                          {!isSending ? (
+                            <button
+                              form="message-form"
+                              type="submit"
+                              className="opacity-50 scale-shadow-interactable rounded-full p-1 h-8"
+                            >
+                              <UilMessage />
+                            </button>
+                          ) : (
+                            <PulseLoader
+                              size={8}
+                              color="green"
+                              className="h-8 center"
+                            />
+                          )}
+                        </div>
+                        <p className="opacity-50 mt-2">
+                          {isClearing
+                            ? "Clearing chat"
+                            : isSending
+                            ? "Sending message"
+                            : "Input a question to ask the server"}
+                        </p>
+                      </form>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div className="flex-1 flex-col center">
-                <Image
-                  src="https://assets.website-files.com/5d5e2ff58f10c53dcffd8683/5da4bd9196a90c1ed77a7792_composition-23.svg"
-                  width={512}
-                  height={288}
-                  alt=""
-                  className="rounded-2xl"
-                />
-                <br />
-                <h1 className="text-2xl font-bold">
-                  Welcome to {capitalizeFirst(pathname!.substring(1))}
-                </h1>
-                <h2 className="text-sm">
-                  Connect with your wallet to continue
-                </h2>
-                <br />
-                <ConnectButton />
-              </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+              ) : (
+                <div className="flex-1 flex-col center">
+                  <Image
+                    src="https://assets.website-files.com/5d5e2ff58f10c53dcffd8683/5da4bd9196a90c1ed77a7792_composition-23.svg"
+                    width={512}
+                    height={288}
+                    alt=""
+                    className="rounded-2xl"
+                  />
+                  <br />
+                  <h1 className="text-2xl font-bold">
+                    Welcome to {capitalizeFirst(pathname!.substring(1))}
+                  </h1>
+                  <h2 className="text-sm">
+                    Connect with your wallet to continue
+                  </h2>
+                  <br />
+                  <ConnectButton />
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
-    </div>
+    </NoSSR>
   );
 };
 

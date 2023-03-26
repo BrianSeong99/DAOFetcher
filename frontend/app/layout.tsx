@@ -8,7 +8,7 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-import React, { useState, ReactElement } from "react";
+import React, { useState, ReactElement, useEffect } from "react";
 
 /** Root styles */
 import "@/styles/globals.css";
@@ -17,7 +17,7 @@ import "@/styles/interactions.css";
 
 /** Wagmi */
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { configureChains, createClient, WagmiConfig } from "wagmi";
+import { configureChains, createClient, useAccount, WagmiConfig } from "wagmi";
 import {
   polygonMumbai,
   gnosisChiado,
@@ -25,8 +25,13 @@ import {
   scrollTestnet,
 } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
-import { ServerListProvider } from "../src/utils/ServerListContext";
+import {
+  ServerListProvider,
+  useServerList,
+} from "../src/utils/ServerListContext";
 import { useRouter } from "next/navigation";
+import UilHome from "@iconscout/react-unicons/icons/uil-home";
+import Link from "next/link";
 
 import { Chain } from 'wagmi/chains';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
@@ -76,12 +81,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [selectedDAOChat, setSelectedDAOChat] = useState(null);
+
   const router = useRouter();
 
   const handleSelectedChange = (id, name) => {
     setSelectedDAOChat(id);
     router.push(`/${name}`);
   };
+
+  useEffect(() => {
+    console.log("running");
+  });
 
   return (
     <html className={inter.className}>
@@ -96,6 +106,14 @@ export default function RootLayout({
                     selectedDAOChat={selectedDAOChat}
                     handleSelectedChange={handleSelectedChange}
                   />
+                  <div className="center mb-4">
+                    <Link
+                      href="/"
+                      className="p-2 border rounded-full scale-shadow-interactable aspect-square text-white center w-fit "
+                    >
+                      <UilHome />
+                    </Link>
+                  </div>
                 </nav>
                 {children}
               </div>

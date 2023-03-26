@@ -16,7 +16,7 @@ const VerticalIconList: NextPage<VerticalIconListProps> = ({
   const { serverList, handleServerListChange } = useServerList();
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col flex-1 items-center gap-4">
       {serverList.map(
         (e) =>
           e.isUserMember && (

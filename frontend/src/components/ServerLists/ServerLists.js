@@ -1,14 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect } from "react";
 
 import ActionableImageCard from "@/components/ActionableImageCard/ActionableImageCard";
 import getDAOServerList from "@/abis/getDAOServerList";
 import getDAOInfo from "@/abis/getDAOInfo";
-import { useServerList } from '../../utils/ServerListContext';
+import { useServerList } from "../../utils/ServerListContext";
+import { useAccount } from "wagmi";
 
 const ServerLists = (props) => {
   const { showRegisterModal } = props;
 
   const { serverList, handleServerListChange } = useServerList();
+
+  const account = useAccount();
 
   async function fetch() {
     const daoServerAddressList = await getDAOServerList();
@@ -18,10 +21,6 @@ const ServerLists = (props) => {
       handleServerListChange([...serverList_tmp]);
     }
   }
-  
-  useEffect(() => {
-    fetch();
-  }, []);
 
   useEffect(() => {
     fetch();
@@ -29,19 +28,21 @@ const ServerLists = (props) => {
 
   return (
     <div className="grid grid-cols-4 items-center gap-4">
-    {Array.isArray(serverList) && serverList.length != 0 && serverList.map((e) => (
-      <ActionableImageCard
-        key={e.daoName}
-        name={e.daoName}
-        src={e.daoIconURL}
-        id={e.daoId}
-        isMember={e.isUserMember}
-        action={e.action}
-        handleMintModal={props.handleMintModal}
-      />
-    ))}
-  </div>
-  )
-}
+      {Array.isArray(serverList) &&
+        serverList.length != 0 &&
+        serverList.map((e) => (
+          <ActionableImageCard
+            key={e.daoName}
+            name={e.daoName}
+            src={e.daoIconURL}
+            id={e.daoId}
+            isMember={e.isUserMember}
+            action={e.action}
+            handleMintModal={props.handleMintModal}
+          />
+        ))}
+    </div>
+  );
+};
 
 export default ServerLists;
