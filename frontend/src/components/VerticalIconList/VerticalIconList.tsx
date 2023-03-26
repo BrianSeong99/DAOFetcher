@@ -23,8 +23,8 @@ const VerticalIconList: NextPage<VerticalIconListProps> = ({
           key={e.daoName}
           className={
             selectedDAOChat === e.daoId ?
-            "rounded-full border border-transparent hover:border-white/70 bg-black/20 h-12 aspect-square overflow-clip scale-shadow-interactable "
-            : "rounded-full border border-3 border-solid border-green-500 hover:border-white/70 bg-black/20 h-12 aspect-square overflow-clip scale-shadow-interactable "
+            "rounded-full border border-4 border-solid border-green-500 hover:border-white/70 bg-black/20 h-12 aspect-square overflow-clip scale-shadow-interactable "
+            : "rounded-full border border-transparent hover:border-white/70 bg-black/20 h-12 aspect-square overflow-clip scale-shadow-interactable "
           }
           onClick={() => handleSelectedChange(e.daoId)}
         >
