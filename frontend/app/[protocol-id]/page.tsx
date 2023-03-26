@@ -15,6 +15,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import { motion, AnimatePresence } from "framer-motion";
 
 import UilMessage from "@iconscout/react-unicons/icons/uil-message";
+import UilTrash from "@iconscout/react-unicons/icons/uil-trash";
 import ConversationMessage from "@/components/conversations/ConversationMessage/ConversationMessage";
 
 const ProtocolChat: NextPage = () => {
@@ -23,6 +24,7 @@ const ProtocolChat: NextPage = () => {
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [isSending, setIsSending] = useState(false);
+  const [isClearing, setIsClearing] = useState(false);
 
   useEffect(() => {
     if (!pathname || !account.address) return;
@@ -103,14 +105,14 @@ const ProtocolChat: NextPage = () => {
 
     const path = pathname.substring(1).toLowerCase();
 
-    setIsSending(true);
+    setIsClearing(true);
     try {
       await PolybaseService.clearMessages(path, account.address!);
       setMessages([]);
     } catch (error) {
       console.log(error);
     }
-    setIsSending(false);
+    setIsClearing(false);
   };
 
   return (
@@ -165,8 +167,6 @@ const ProtocolChat: NextPage = () => {
                 <div>
                   <div> Summaries</div>
 
-                  <button onClick={handleClearChat}> Clear chat </button>
-
                   <div>Chats</div>
                 </div>
 
@@ -186,41 +186,51 @@ const ProtocolChat: NextPage = () => {
                     ))}
                 </div>
 
-                <div className="relative bottom-10 left-0 right-0 bg-surface/50">
-                  <form
-                    id="message-form"
-                    method="post"
-                    onSubmit={handleSubmit}
-                    className="flex flex-col justify-center items-center"
+                <div className="flex w-full mb-4 space-x-4 center">
+                  <button
+                    onClick={handleClearChat}
+                    className="center mb-8 border rounded-full p-2 scale-shadow-interactable"
                   >
-                    <div className="flex w-full bg-primary/20 rounded-full items-center px-6 py-2 ">
-                      <input
-                        name="message"
-                        className="flex-1 bg-transparent ring-transparent outline-none mr-2 text-lg"
-                        disabled={isSending}
-                      />
-                      {!isSending ? (
-                        <button
-                          form="message-form"
-                          type="submit"
-                          className="opacity-50 scale-shadow-interactable rounded-full p-1 h-8"
-                        >
-                          <UilMessage />
-                        </button>
-                      ) : (
-                        <PulseLoader
-                          size={8}
-                          color="green"
-                          className="h-8 center"
+                    <UilTrash />
+                  </button>
+                  <div className="w-full bg-surface/50">
+                    <form
+                      id="message-form"
+                      method="post"
+                      onSubmit={handleSubmit}
+                      className="flex flex-col justify-center items-center"
+                    >
+                      <div className="flex w-full bg-primary/20 rounded-full items-center px-6 py-2 ">
+                        <input
+                          name="message"
+                          className="flex-1 bg-transparent ring-transparent outline-none mr-2 text-lg"
+                          disabled={isSending || isClearing}
                         />
-                      )}
-                    </div>
-                    <p className="opacity-50 mt-2">
-                      {isSending
-                        ? "Sending message"
-                        : "Input a question to ask the server"}
-                    </p>
-                  </form>
+                        {!isSending ? (
+                          <button
+                            form="message-form"
+                            type="submit"
+                            className="opacity-50 scale-shadow-interactable rounded-full p-1 h-8"
+                          >
+                            <UilMessage />
+                          </button>
+                        ) : (
+                          <PulseLoader
+                            size={8}
+                            color="green"
+                            className="h-8 center"
+                          />
+                        )}
+                      </div>
+                      <p className="opacity-50 mt-2">
+                        {isClearing
+                          ? "Clearing chat"
+                          : isSending
+                          ? "Sending message"
+                          : "Input a question to ask the server"}
+                      </p>
+                    </form>
+                  </div>
                 </div>
               </div>
             ) : (

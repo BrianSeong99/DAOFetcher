@@ -18,9 +18,15 @@ import "@/styles/interactions.css";
 /** Wagmi */
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { polygonMumbai, gnosisChiado, optimismGoerli, scrollTestnet } from "wagmi/chains";
+import {
+  polygonMumbai,
+  gnosisChiado,
+  optimismGoerli,
+  scrollTestnet,
+} from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
-import { ServerListProvider } from '../src/utils/ServerListContext';
+import { ServerListProvider } from "../src/utils/ServerListContext";
+import { useRouter } from "next/navigation";
 
 const { chains, provider } = configureChains(
   [polygonMumbai, optimismGoerli, gnosisChiado, scrollTestnet],
@@ -44,9 +50,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [selectedDAOChat, setSelectedDAOChat] = useState(null);
+  const router = useRouter();
 
-  const handleSelectedChange = (id) => {
+  const handleSelectedChange = (id, name) => {
     setSelectedDAOChat(id);
+    router.push(`/${name}`);
   };
 
   return (
@@ -54,20 +62,19 @@ export default function RootLayout({
       <head></head>
       <body className="h-full">
         <ServerListProvider>
-
-        <WagmiConfig client={wagmiClient}>
-          <RainbowKitProvider chains={chains}>
-            <div className="flex ">
-              <nav className="w-20 flex flex-col bg-on-surface h-screen pt-6">
-                <VerticalIconList 
-                  selectedDAOChat={selectedDAOChat}
-                  handleSelectedChange={handleSelectedChange}
-                />
-              </nav>
-              {children}
-            </div>
-          </RainbowKitProvider>
-        </WagmiConfig>
+          <WagmiConfig client={wagmiClient}>
+            <RainbowKitProvider chains={chains}>
+              <div className="flex ">
+                <nav className="w-20 flex flex-col bg-on-surface h-screen pt-6">
+                  <VerticalIconList
+                    selectedDAOChat={selectedDAOChat}
+                    handleSelectedChange={handleSelectedChange}
+                  />
+                </nav>
+                {children}
+              </div>
+            </RainbowKitProvider>
+          </WagmiConfig>
         </ServerListProvider>
       </body>
     </html>
