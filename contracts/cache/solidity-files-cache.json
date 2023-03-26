@@ -443,8 +443,8 @@
       ]
     },
     "/Users/jinwooseong/Developer/Hackathon/2023ScalingEth/DAOFetcher/contracts/contracts/DAOServerFactory.sol": {
-      "lastModificationDate": 1679793676560,
-      "contentHash": "bde819d196ed013bf69da022ce240ba7",
+      "lastModificationDate": 1679808913625,
+      "contentHash": "1793fb60e6b7c3553bdd6800f85aa371",
       "sourceName": "contracts/DAOServerFactory.sol",
       "solcConfig": {
         "version": "0.8.4",
