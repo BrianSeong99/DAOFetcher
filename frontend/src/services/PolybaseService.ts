@@ -23,7 +23,7 @@ export default class PolybaseService {
           actor: string;
           message: string;
           timestamp: number;
-      
+        
           constructor(id: string, protocolId: string, userId: string, actor: string, message: string, timestamp: number) {
               this.id = id;
               this.protocolId = protocolId;
@@ -32,6 +32,28 @@ export default class PolybaseService {
               this.message = message;
               this.timestamp = timestamp;
           }
+        
+          del () {
+            selfdestruct();
+          }
+        }
+        
+        @public 
+        collection ProtocolSummaries {
+          id: string;
+          protocolId: string;
+          summary: string;
+        
+          constructor(id: string, protocolId: string, summary: string) {
+            this.id = id;
+            this.protocolId = protocolId;
+            this.summary = summary;
+          }
+          
+          del () {
+            selfdestruct();
+          }
+          
         }
       `
       );
@@ -84,5 +106,19 @@ export default class PolybaseService {
           .call("del");
       })
     );
+  }
+
+  static async getSummary(protocolId: string): Promise<
+    CollectionList<{
+      id: string;
+      message: string;
+      protocolId: string;
+    }>
+  > {
+    await this.init();
+    return this.db
+      .collection("ProtocolSummaries")
+      .where("protocolId", "==", protocolId)
+      .get();
   }
 }
