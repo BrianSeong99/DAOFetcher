@@ -1,4 +1,4 @@
-import styles from './InputBox.css';
+import styles from './InputBox.Module.css';
 
 const InputBox = (props) => {
   const {
@@ -12,15 +12,16 @@ const InputBox = (props) => {
   }
 
   return (
-    <div className={styles.inputBox} style={{display:"flex"}}>
+    <div className={styles.inputCont} style={{display:"flex"}}>
       <div>
         {displayText}:
       </div>
       <input
+          style={{borderRadius:"15px",  marginLeft:"5px"}}
           type="text"
           value={value}
           onChange={handleChange}
-          placeholder="Enter text here"
+          placeholder="  Enter text here"
       /> 
     </div>
   )

@@ -28,19 +28,21 @@
 /* Close button */
 .closeButton {
     position: absolute;
-    top: 10px;
+    top: 18px;
     right: 20px;
-    font-size: 1.5rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    align-items: center;
+    text-align: center;
+    font-size: 1.1rem;
     cursor: pointer;
     color: black;
-    /* background-color: rgba(60, 66, 66, 0.8); */
+    background-color: #E6E6E6;
 }
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+.closeButton:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
 }
 
 .cards {

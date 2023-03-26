@@ -35,3 +35,5 @@ frontend/.vercel
 
 contracts/node_modules
 contracts/.env*
+
+discord_bot/.env*

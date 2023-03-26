@@ -148,3 +148,9 @@ a {
   grid-area: content;
   height: 100vh;
 }
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

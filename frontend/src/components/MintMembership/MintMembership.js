@@ -57,8 +57,9 @@ export default function MintMembership(props) {
                                 </div>
                                 <button
                                     id={index}
-                                    className={styles.mintButton}
-                                    style={{ display: "flex" }}
+                                    className="border border-primary text-primary hover:bg-primary/10 px-6 py-2 scale-shadow-interactable rounded-full"
+                                    // className={styles.mintButton}
+                                    style={{display:"flex", alignItems:"center"}}
                                     onClick={() => handleMint(index, membership.price)}
                                 >
                                     <div>Mint</div>

@@ -45,6 +45,7 @@ export default function ConnectDiscord(props) {
         <div>
             <button
                 onClick={handleConnect}
+                className="bg-primary text-black px-6 py-2 scale-shadow-interactable rounded-full"
                 style={{ backgroundColor: "white", padding: "0.8rem", borderRadius: "20px", marginTop: "10px" }}
             >
                 <p style={{ display: "flex", gap: "10px" }}><FaDiscord size={20} color="5865F2" />{buttonText}</p>
