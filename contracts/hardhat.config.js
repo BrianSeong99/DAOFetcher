@@ -56,6 +56,7 @@ module.exports = {
       url: process.env.GNOSIS_TESTNET_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      gasPrice: 15000000000, // 15 Gwei
     },
     mantle_tn: {
       url: process.env.MANTLE_TESTNET_URL || "",
@@ -69,7 +70,10 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      polygonMumbai: process.env.MUMBAI_API_KEY,
+      // goerli: process.env.ETHERSCAN_API_KEY,
+      // polygonMumbai: process.env.MUMBAI_API_KEY,
+      // optimisticGoerli: process.env.OPTIMISM_API_KEY,
+      chiado: process.env.CHIADO_API_KEY,
     },
   },
 };

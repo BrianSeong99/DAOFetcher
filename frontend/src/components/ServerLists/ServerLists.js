@@ -12,12 +12,11 @@ const ServerLists = (props) => {
 
   async function fetch() {
     const daoServerAddressList = await getDAOServerList();
-    let ls = [];
+    let serverList_tmp = [];
     for (let i = 0; i < daoServerAddressList.length; i++) {
-      ls.push(await getDAOInfo(daoServerAddressList[i]));
+      serverList_tmp.push(await getDAOInfo(daoServerAddressList[i]));
+      handleServerListChange([...serverList_tmp]);
     }
-    console.log(ls);
-    handleServerListChange(ls);
   }
   
   useEffect(() => {
