@@ -50,7 +50,7 @@ export default function ConnectWallet() {
     if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
       window.ethereum.on("accountsChanged", (accounts) => {
         setAccount(accounts[0]);
-        console.log(accounts[0]);
+        // console.log(accounts[0]);
       });
     } else {
       /* MetaMask is not installed */

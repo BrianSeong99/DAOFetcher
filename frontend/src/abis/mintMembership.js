@@ -5,14 +5,14 @@ import { ethers } from "ethers";
 export default async function mintMembership(DAOServerAddress, _type, _price) {
   const signer = await getSigner();
   const userAddress = await signer.getAddress();;
-  console.log(DAOServerAddress);
+  // console.log(DAOServerAddress);
   if (signer) {
     const daoServer = new ethers.Contract(
       DAOServerAddress,
       DAOServerABI.abi,
       signer
     );
-    console.log(daoServer);
+    // console.log(daoServer);
     const tx = await daoServer.mintNoneAdminMembership(userAddress, _type, {
       value: _price,
     });

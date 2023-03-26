@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 interface ActionableImageCardProps {
   name: string;
@@ -14,10 +14,6 @@ interface ActionableImageCardProps {
 }
 
 const ActionableImageCard: FC<ActionableImageCardProps> = (props) => {
-
-  useEffect(() => {
-    console.log("user", props.isMember);
-  }, []);
 
   return (
     <button
