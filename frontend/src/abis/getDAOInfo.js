@@ -24,7 +24,8 @@ export default async function getDAOInfo(DAOServerAddress) {
       daoIconURL: daoIconURL,
       daoId: daoId,
       isUserMember: isUserMember,
-      tokenExpiryTimestamp: tokenExpiryTimestamp
+      tokenExpiryTimestamp: tokenExpiryTimestamp,
+      DAOServerAddress: DAOServerAddress
     }
   } else {
     console.log("No Wallet Connected");

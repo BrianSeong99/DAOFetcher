@@ -1,49 +1,38 @@
 import React, { useState, useEffect } from 'react'
+import { ethers } from 'ethers';
 
 import Image from "next/image";
 import styles from './MintMembership.module.css';
+import getDAOMemberships from "../../abis/getDAOMemberships";
+import mintMembership from "../../abis/mintMembership";
+import { useServerList } from '../../utils/ServerListContext';
 
 
 export default function MintMembership(props) {
     const {
-        onClose,
-        handleMintModal
+        onClose, mintServerChoice
     } = props
 
+    const [daoMemberships, setDaoMemberships] = useState([]);
+    const { serverList, handleServerListChange } = useServerList();
+    const [currentDAOAddr, setCurrentDAOAddr] = useState();
 
-    const tmp_Membership = {
-        "daoName": "Test DAO",
-        "daoDescription": "A test DAO",
-        "adminURI": "https://example.com/metadata/admin.json",
-        "memberships": [
-            {
-                name: "Silver",
-                symbol: "SLV",
-                tokenURIs: "https://avatars.githubusercontent.com/u/77035304?s=280&v=4",
-                expirationDates: "180",
-                price: 0.5
-            },
-            {
-                name: "Gold",
-                symbol: "GLD",
-                tokenURIs: "https://cdn.stamp.fyi/space/aave.eth?s=164",
-                expirationDates: "365",
-                price: 1
-            },
-            {
-                name: "Diamond",
-                symbol: "DIA",
-                tokenURIs: "https://cdn.stamp.fyi/space/aave.eth?s=164",
-                expirationDates: "365*5",
-                price: 5
-            }
-        ]
+    const handleDAOMembershipLists = async () => {
+        const mintingServer = serverList.filter(ele => ele.daoId === mintServerChoice);
+        console.log("mintingServer", mintingServer);
+        setCurrentDAOAddr(mintingServer[0].DAOServerAddress);
+        const response = await getDAOMemberships(mintingServer[0].DAOServerAddress);
+        setDaoMemberships(response.slice(2));
     }
-    const num_membership = Object.keys(tmp_Membership?.memberships).length
-    console.log("check mint", tmp_Membership.memberships)
 
-    const handleMint = (index) => {
+    useEffect(() => {
+        handleDAOMembershipLists();
+    }, [])
+
+    const handleMint = async (index, price) => {
         console.log("mint ", index)
+        const response = await mintMembership(currentDAOAddr, index+2, price);
+        console.log(response);
     }
     return (
         <div id="myModal" className={styles.modal}>
@@ -51,19 +40,19 @@ export default function MintMembership(props) {
                 <div className={styles.closeButton} onClick={onClose}>&times;</div>
 
                 <div className={styles.cards}>
-                    {tmp_Membership.memberships.map((tier, index) => {
+                    {Array.isArray(daoMemberships) && daoMemberships.length != 0 && daoMemberships.map((membership, index) => {
                         return (
-                            <div className={styles.card} >
-                                <div style={{ fontSize: "1.8rem", marginTop: "20px" }}>{tier.name}</div>
+                            <div className={styles.card} key={index}>
+                                <div style={{ fontSize: "1.8rem", marginTop: "20px" }}>{membership.name}</div>
                                 <Image
-                                    src={tier.tokenURIs}
-                                    alt={tier.name}
+                                    src={membership.tokenURI}
+                                    alt={membership.name}
                                     width={220}
                                     height={220}
-                                    className="rounded-full overflow-clip  shadow-md"
+                                    className="rounded-full overflow-clip shadow-md"
                                 />
                                 <div style={{ display: "flex" }}>
-                                    <div style={{ fontSize: "3rem" }}>{tier.expirationDates} </div>
+                                    <div style={{ fontSize: "3rem" }}>{membership.duration.toString()} </div>
                                     <div className={styles.days}>days</div>
                                 </div>
                                 <button
@@ -71,10 +60,10 @@ export default function MintMembership(props) {
                                     className="border border-primary text-primary hover:bg-primary/10 px-6 py-2 scale-shadow-interactable rounded-full"
                                     // className={styles.mintButton}
                                     style={{display:"flex", alignItems:"center"}}
-                                    onClick={() => handleMint(index)}
+                                    onClick={() => handleMint(index, membership.price)}
                                 >
                                     <div>Mint</div>
-                                    <div style={{ fontWeight: "300", fontStyle: "italic", fontSize: "1.5rem", paddingLeft: "5px", paddingRight: "10px" }}>{tier.price}</div>
+                                    <div style={{ fontWeight: "300", fontStyle: "italic", fontSize: "1.5rem", paddingLeft: "5px", paddingRight: "10px" }}>{ethers.utils.formatEther(membership.price)}</div>
                                     <div>ETH</div>
                                 </button>
                             </div>

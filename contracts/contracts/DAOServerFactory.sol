@@ -5,6 +5,7 @@ import "contracts/DAOServer.sol";
 
 contract DAOServerFactory {
     address[] public daoServers;
+    mapping(string => bool) daoRegistered;
 
     struct userDaoRelation {
         address daoAddress;
@@ -22,6 +23,7 @@ contract DAOServerFactory {
         uint256[] memory _durations, 
         uint256[] memory _prices
     ) public {
+        require(!daoRegistered[_daoId], "daoRegistered already");
         DAOServer newDAOServer = new DAOServer(
             msg.sender, 
             _daoName, 
@@ -34,6 +36,7 @@ contract DAOServerFactory {
             _prices
         );
         daoServers.push(address(newDAOServer));
+        daoRegistered[_daoId] = true;
     }
 
     function getAllDAOServers() public view returns (address[] memory) {
