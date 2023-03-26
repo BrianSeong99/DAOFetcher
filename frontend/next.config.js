@@ -5,7 +5,15 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["cdn.stamp.fyi", "avatars.githubusercontent.com", 'cdn.discordapp.com', 'www.cnet.com', 'cdn.geekwire.com', 'thumbor.forbes.com'],
+    domains: [
+      "cdn.stamp.fyi",
+      "avatars.githubusercontent.com",
+      "cdn.discordapp.com",
+      "www.cnet.com",
+      "cdn.geekwire.com",
+      "thumbor.forbes.com",
+      "picsum.photos"
+    ],
   },
 };
 
