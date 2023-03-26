@@ -13,7 +13,7 @@ A few of our team members have extensive experience running large DAOs. One thin
 How can we improve DAO accessibility?
 
 1. People are disoriented when they first join a DAO Discord server and are really overwhelmed with the large amounts of information thrown at them.
-2. Not everybody wants to (or have the means to) buy the standard NFT membership first to join and get to be a part of a given DAO's community. We wanted to offer a cheaper or lighter access solution for the community to get to know the DAO first before they make their purchase decision.
+2. Not everybody wants to (or have the means to) buy the standard NFT membership to join and get to be a part of a given DAO's community. We wanted to offer a cheaper or lighter access solution for the community to get to know the DAO first before they make their purchase decision.
 3. Not everyone has the same on-chain access to DAO communities (some might only have a chain gas token that is not native to the original DAO community’s membership NFT).
 
 ## Smart contracts
