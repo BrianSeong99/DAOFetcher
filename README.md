@@ -1,5 +1,5 @@
 # DAOFetcher
-![DAO Fetcher Logo]("./frontend/src/temp_assets/DAOFetcher_logo.png")
+![DAO Fetcher Logo](./frontend/src/temp_assets/DAOFetcher_logo.png)
 
 DAOFetcher is a platform for users to easily receive updates and learn about a given DAO's culture through discord summarization with the aid of OpenAI's gpt-3.5-turbo built on Polybase and EVM chains.
 
@@ -25,6 +25,12 @@ DAOs register with DAOFetcher and set NFT membership parameters
 Users connect their wallet, browse, and purchase NFTs with registered DAOs
 
 Read channel summaries and other analytics to learn about key information and DAO culture
+
+## Example
+
+BAYC is an exclusive community that can only joined after purchasing their NFT, by using our service to provide a “light” membership of BAYC, which has access to certain channels’ summaries, users can get a taste of the DAO before they actually make their big purchase, or just get the latest updates from the server.
+
+Bankless is a open community that is known for its rich activities, but in order for users to keep up with the DAO’s progress, it requires significant amount of time to from users who are usually only parttime participating in the DAO. We hope to provide a lighter access for users to stay updated with the DAO with our light membership and only check the actual servers when they think some stuff explained in the summary interests them.
 
 ## Smart contracts
 
@@ -54,3 +60,5 @@ This project uses a variety of technologies across both the frontend and backend
 - Deployed to: Polygon, Optimism, Scroll, Mantle, and Gnosis Chain (Chiado)
 
 ## Team members
+
+![Team Info](./imgs/team.png)
