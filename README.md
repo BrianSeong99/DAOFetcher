@@ -3,7 +3,10 @@
 
 DAOFetcher is a platform for users to easily receive updates and learn about a given DAO's culture through discord summarization with the aid of OpenAI's gpt-3.5-turbo built on Polybase and EVM chains.
 
+Please visit [Project Website](https://ethglobal.com/showcase/daofetcher-xomxb) for demo videos and descriptions.
+
 *Built for the [Scaling Ethereum](https://ethglobal.com/events/scaling2023) hackathon*
+
 
 ## Description
 
